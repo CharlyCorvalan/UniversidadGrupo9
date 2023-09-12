@@ -31,7 +31,7 @@ public class UniversidadGrupo9 {
 ////            mate.buscarMateriaXid(1);
 //            mate.buscarMateriasXaño(2);
 
-Alumnos juan=new Alumnos(1,123456,"Luna","lucas pedro",LocalDate.of(1980,4, 12),true);
+Alumnos juan=new Alumnos(1,123456,"Luna","Lucas Pitter",LocalDate.of(1980,4, 12),true);
 
 AlumnoData alu=new AlumnoData();
 //alu.guardarAlumno(juan);

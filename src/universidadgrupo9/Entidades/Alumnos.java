@@ -14,7 +14,7 @@ public class Alumnos {
     public Alumnos() {
     }
 
-    public Alumnos(int idAlumno, int dni, String nombre, String apellido, LocalDate fechaNac, boolean activo) {
+    public Alumnos(int idAlumno, int dni, String apellido, String nombre, LocalDate fechaNac, boolean activo) {
         this.idAlumno = idAlumno;
         this.dni = dni;
         this.nombre = nombre;
