@@ -142,27 +142,26 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBuscarActionPerformed
-       String cod=TextoCodigo.getText();
-       String anio=TextoAño.getText();
-        
-        if(cod!=null){
-            int codigo=Integer.parseInt(cod);
-        Conexion.getConexion();
-        MateriaData buscar= new MateriaData();
-        buscar.buscarMateriasXaño(codigo);
-        }else if(anio!=null){
-            int año=Integer.parseInt(anio);
-        Conexion.getConexion();
-        MateriaData buscar= new MateriaData();
-        buscar.buscarMateriaXid(año);
-    }
-//        
-        
-//        if(año == -1 ){
-//        buscar.buscarMateriaXid(codigo);
-//        }else {
-            
-//        }
+        String cod = TextoCodigo.getText();
+        String anio = TextoAño.getText();
+        int codigo=0;
+        int año=0; 
+        if(cod.equals("")){
+            codigo=-1;
+        }else if(anio.equals("")){
+            año=-1;
+        }
+        if (codigo>-1) {
+            int codigo1 = Integer.parseInt(cod);
+            Conexion.getConexion();
+            MateriaData buscar = new MateriaData();
+            buscar.buscarMateriaXid(codigo1);
+        }else if(año>-1){
+        int año1 = Integer.parseInt(anio);
+            Conexion.getConexion();
+            MateriaData buscar = new MateriaData();
+            buscar.buscarMateriasXaño(año1);
+        }
     }//GEN-LAST:event_BotonBuscarActionPerformed
 
 
