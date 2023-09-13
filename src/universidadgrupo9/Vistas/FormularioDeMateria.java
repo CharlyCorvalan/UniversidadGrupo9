@@ -145,7 +145,8 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         String cod = TextoCodigo.getText();
         String anio = TextoAño.getText();
         int codigo=0;
-        int año=0; 
+        int año=0;
+        
         if(cod.equals("")){
             codigo=-1;
         }else if(anio.equals("")){

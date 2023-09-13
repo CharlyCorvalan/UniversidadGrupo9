@@ -45,10 +45,7 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="TextoCodigo" min="-2" pref="73" max="-2" attributes="0"/>
-                                      <EmptySpace min="99" pref="99" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="TextoCodigo" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
                                   <Component id="checkbox" min="-2" max="-2" attributes="0"/>
                                   <Component id="TextoNombre" min="-2" pref="172" max="-2" attributes="0"/>
                                   <Component id="TextoAño" min="-2" pref="102" max="-2" attributes="0"/>
