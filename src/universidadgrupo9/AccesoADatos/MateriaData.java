@@ -39,12 +39,13 @@ public class MateriaData {
         }
     }
     public void modificarMateria (Materia mat){
-        String materia="update  materia set nombre = ?, año=? where idMateria =? ";
+        String materia="update  materia set nombre = ?, año=?, estado=? where idMateria =? ";
         try {
             PreparedStatement ps=con.prepareStatement(materia);
             ps.setString(1, mat.getNombre());
             ps.setInt(2, mat.getAñoMateria());
-            ps.setInt(3, mat.getIdMateria());
+            ps.setBoolean(3, mat.isActivo());
+            ps.setInt(4, mat.getIdMateria());
             int resultado =ps.executeUpdate();
             if(resultado ==1){
             JOptionPane.showMessageDialog(null, "Exito al modificar la materia");

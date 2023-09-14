@@ -170,21 +170,21 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
     private void BotonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBuscarActionPerformed
         String cod = TextoCodigo.getText();
         String anio = TextoAño.getText();
-        int codigo=0;
-        int año=0;
-        
-        if(cod.equals("")){
-            codigo=-1;
-        }else if(anio.equals("")){
-            año=-1;
+        int codigo = 0;
+        int año = 0;
+
+        if (cod.equals("")) {
+            codigo = -1;
+        } else if (anio.equals("")) {
+            año = -1;
         }
-        if (codigo>-1) {
+        if (codigo > -1) {
             int codigo1 = Integer.parseInt(cod);
             Conexion.getConexion();
             MateriaData buscar = new MateriaData();
             buscar.buscarMateriaXid(codigo1);
-        }else if(año>-1){
-        int año1 = Integer.parseInt(anio);
+        } else if (año > -1) {
+            int año1 = Integer.parseInt(anio);
             Conexion.getConexion();
             MateriaData buscar = new MateriaData();
             buscar.buscarMateriasXaño(año1);
@@ -192,29 +192,58 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BotonBuscarActionPerformed
 
     private void BotonRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRefrescarActionPerformed
-       TextoAño.setText("");
-       TextoCodigo.setText("");
-       TextoNombre.setText("");
-       checkbox.setState(false);
+        TextoAño.setText("");
+        TextoCodigo.setText("");
+        TextoNombre.setText("");
+        checkbox.setState(false);
     }//GEN-LAST:event_BotonRefrescarActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
-        String id=TextoCodigo.getText();
-        int idMateria=0;
-        if(id.equals("")){
-            idMateria=-1;
+        String id = TextoCodigo.getText();
+        int idMateria = 0;
+        if (id.equals("")) {
+            idMateria = -1;
             JOptionPane.showMessageDialog(null, "Ingrese el id en campo Codigo");
-        }else{
-            idMateria=Integer.parseInt(id);
+        } else {
+            idMateria = Integer.parseInt(id);
             Conexion.getConexion();
-            MateriaData eliminar=new MateriaData();
+            MateriaData eliminar = new MateriaData();
             eliminar.eliminarMateria(idMateria);
         }
-        
+
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
     private void BotonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGuardarActionPerformed
-        
+        String nombre = TextoNombre.getText();
+        String año = TextoAño.getText();
+        String idMateria = TextoCodigo.getText();
+
+        int año1 = 0;
+        int id1 = 0;
+        if (nombre.equals("") || año.equals("") || idMateria.equals("")) {
+            JOptionPane.showMessageDialog(null, "Campos requeridos estan vacios");
+            TextoAño.setText("");
+            TextoCodigo.setText("");
+            TextoNombre.setText("");
+        } else {
+            try {
+                año1 = Integer.parseInt(año);
+                id1 = Integer.parseInt(idMateria);
+                Conexion.getConexion();
+                MateriaData guardar = new MateriaData();
+                Materia modificar = new Materia(id1, nombre, año1, checkbox.getState());
+                guardar.modificarMateria(modificar);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Año o id requiere enteros" + ex);
+
+            } finally {
+                TextoAño.setText("");
+                TextoCodigo.setText("");
+                TextoNombre.setText("");
+            }
+        }
+
+
     }//GEN-LAST:event_BotonGuardarActionPerformed
 
 
