@@ -4,17 +4,23 @@
  */
 package universidadgrupo9.Vistas;
 
+import java.time.LocalDate;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import universidadgrupo9.AccesoADatos.AlumnoData;
+import universidadgrupo9.Entidades.Alumnos;
+
 /**
  *
  * @author charl
  */
 public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ManejoDeInscripciones
-     */
+    private DefaultTableModel modelo=new DefaultTableModel();
     public ManejoDeInscripciones() {
         initComponents();
+        CargarCabecera();
+        CargarComboBox();
     }
 
     /**
@@ -60,8 +66,6 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jLabel3.setText("listado de materias");
-
-        CBSelecAlum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         RBMateNoIns.setText("materias no inscriptas");
 
@@ -111,16 +115,14 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(CBSelecAlum, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(jLabel1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(CBSelecAlum, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
@@ -170,4 +172,22 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableAlum;
     // End of variables declaration//GEN-END:variables
+public void CargarComboBox(){
+  AlumnoData alD=new AlumnoData();
+    //CBSelecAlum.setModel(new DefaultComboBoxModel<>(alD.listarAlumnos()));
+for (Alumnos alum : alD.listarAlumnos()) {
+//      String dni= String.valueOf(alum.getDni());
+//    String id=String.valueOf(alum.getIdAlumno());
+
+        CBSelecAlum.addItem(alum.toString());
+    }
+}
+
+private void CargarCabecera(){
+   modelo.addColumn("ID");
+   modelo.addColumn("NOMBRE");
+   modelo.addColumn("AÑO");
+   jTableAlum.setModel(modelo);
+    
+}
 }
