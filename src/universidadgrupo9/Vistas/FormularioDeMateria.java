@@ -4,6 +4,7 @@
  */
 package universidadgrupo9.Vistas;
 
+import javax.swing.JOptionPane;
 import universidadgrupo9.AccesoADatos.Conexion;
 import universidadgrupo9.AccesoADatos.MateriaData;
 import universidadgrupo9.Entidades.Materia;
@@ -40,10 +41,11 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         TextoNombre = new javax.swing.JTextField();
         TextoAño = new javax.swing.JTextField();
         checkbox = new java.awt.Checkbox();
-        BotonNuevo = new javax.swing.JButton();
+        BotonRefrescar = new javax.swing.JButton();
         BotonEliminar = new javax.swing.JButton();
         BotonGuardar = new javax.swing.JButton();
         BotonSalir = new javax.swing.JButton();
+        BotonNuevo = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         jLabel1.setText("Materia");
@@ -63,13 +65,30 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
             }
         });
 
-        BotonNuevo.setText("Nuevo");
+        BotonRefrescar.setText("Refrescar");
+        BotonRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonRefrescarActionPerformed(evt);
+            }
+        });
 
         BotonEliminar.setText("Eliminar");
+        BotonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonEliminarActionPerformed(evt);
+            }
+        });
 
         BotonGuardar.setText("Guardar");
+        BotonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonGuardarActionPerformed(evt);
+            }
+        });
 
         BotonSalir.setText("Salir");
+
+        BotonNuevo.setText("Nuevo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,15 +100,20 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                         .addGap(158, 158, 158)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BotonNuevo)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel2))
+                                .addGap(46, 46, 46))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(BotonNuevo)
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(BotonEliminar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -100,13 +124,14 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(TextoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(99, 99, 99))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(BotonBuscar))
                                     .addComponent(checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TextoAño, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BotonBuscar)))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                                .addComponent(BotonRefrescar)))))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +141,8 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(TextoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotonBuscar))
+                    .addComponent(BotonBuscar)
+                    .addComponent(BotonRefrescar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -131,10 +157,10 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                     .addComponent(checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotonNuevo)
                     .addComponent(BotonEliminar)
                     .addComponent(BotonGuardar)
-                    .addComponent(BotonSalir))
+                    .addComponent(BotonSalir)
+                    .addComponent(BotonNuevo))
                 .addGap(28, 28, 28))
         );
 
@@ -165,12 +191,39 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_BotonBuscarActionPerformed
 
+    private void BotonRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRefrescarActionPerformed
+       TextoAño.setText("");
+       TextoCodigo.setText("");
+       TextoNombre.setText("");
+       checkbox.setState(false);
+    }//GEN-LAST:event_BotonRefrescarActionPerformed
+
+    private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
+        String id=TextoCodigo.getText();
+        int idMateria=0;
+        if(id.equals("")){
+            idMateria=-1;
+            JOptionPane.showMessageDialog(null, "Ingrese el id en campo Codigo");
+        }else{
+            idMateria=Integer.parseInt(id);
+            Conexion.getConexion();
+            MateriaData eliminar=new MateriaData();
+            eliminar.eliminarMateria(idMateria);
+        }
+        
+    }//GEN-LAST:event_BotonEliminarActionPerformed
+
+    private void BotonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGuardarActionPerformed
+        
+    }//GEN-LAST:event_BotonGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonBuscar;
     private javax.swing.JButton BotonEliminar;
     private javax.swing.JButton BotonGuardar;
     private javax.swing.JButton BotonNuevo;
+    private javax.swing.JButton BotonRefrescar;
     private javax.swing.JButton BotonSalir;
     private javax.swing.JTextField TextoAño;
     private javax.swing.JTextField TextoCodigo;

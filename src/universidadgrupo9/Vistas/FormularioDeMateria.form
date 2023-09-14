@@ -26,16 +26,24 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="BotonNuevo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="BotonNuevo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="BotonEliminar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -43,20 +51,24 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="BotonSalir" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="TextoCodigo" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="TextoCodigo" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="BotonBuscar" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="checkbox" min="-2" max="-2" attributes="0"/>
                                   <Component id="TextoNombre" min="-2" pref="172" max="-2" attributes="0"/>
                                   <Component id="TextoAño" min="-2" pref="102" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="BotonBuscar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="11" max="32767" attributes="0"/>
+                              <Component id="BotonRefrescar" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -69,6 +81,7 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="TextoCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BotonBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BotonRefrescar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -87,10 +100,10 @@
               </Group>
               <EmptySpace pref="51" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="BotonNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BotonEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BotonGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BotonSalir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BotonNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
           </Group>
@@ -142,24 +155,38 @@
     </Component>
     <Component class="java.awt.Checkbox" name="checkbox">
     </Component>
-    <Component class="javax.swing.JButton" name="BotonNuevo">
+    <Component class="javax.swing.JButton" name="BotonRefrescar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nuevo"/>
+        <Property name="text" type="java.lang.String" value="Refrescar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonRefrescarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotonEliminar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonEliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotonGuardar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonGuardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotonSalir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salir"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="BotonNuevo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nuevo"/>
       </Properties>
     </Component>
   </SubComponents>
