@@ -46,7 +46,7 @@ public class UniversidadGrupo9 {
 
         Inscripcion ins=new Inscripcion(7, mau, historia1);
         InscripcionData insD=new InscripcionData();
-        insD.guardarInscripcion(ins);
+        insD.guardarInscripcion(ins); 
     }
     
 }
