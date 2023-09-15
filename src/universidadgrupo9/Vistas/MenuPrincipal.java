@@ -33,7 +33,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        FormAlumno = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
@@ -67,13 +67,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Alumno");
 
-        jMenuItem1.setText("Formulario Alumno");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        FormAlumno.setText("Formulario Alumno");
+        FormAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                FormAlumnoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(FormAlumno);
 
         jMenuBar1.add(jMenu1);
 
@@ -153,9 +153,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jMenu2ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void FormAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormAlumnoActionPerformed
+        
+     FormularioDeAlumno form=new FormularioDeAlumno();
+     escritorio.removeAll();
+     escritorio.repaint();
+     escritorio.add(form);
+     form.setVisible(true);
+        escritorio.moveToFront(form);
+        
+    }//GEN-LAST:event_FormAlumnoActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
          ManejoDeInscripciones pr=new ManejoDeInscripciones();
@@ -202,6 +209,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem FormAlumno;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -212,7 +220,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
