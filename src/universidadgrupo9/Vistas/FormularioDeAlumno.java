@@ -251,34 +251,19 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
         try{
          int doc=Integer.parseInt(dni);
          LocalDate fecha;
-        
-        
          fecha =FechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    
-         
          Conexion.getConexion();
          AlumnoData guardar = new AlumnoData();
           Alumnos modificar = new Alumnos(doc,apellido,nombre,fecha,Radio.isSelected());
-                guardar.modificarAlumno(modificar);
-        }catch (NumberFormatException ex) {
-            
+                guardar.guardarAlumno(modificar);
+        }catch (NumberFormatException ex) { 
             JOptionPane.showMessageDialog(null, "el documento requiere enteros" + ex);
-
             } finally {
                 TextoDni.setText("");
                 TextoApellido.setText("");
                 TextoNombre.setText("");
-            } 
-            
-            
-            
-            
-            
-            
-        
-     }   
-       
-        
+            }    
+     }    
     }//GEN-LAST:event_bNuevoActionPerformed
 
     private void FechaNacimientoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_FechaNacimientoPropertyChange
