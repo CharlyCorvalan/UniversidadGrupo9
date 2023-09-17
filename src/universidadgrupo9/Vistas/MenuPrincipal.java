@@ -4,6 +4,9 @@
  */
 package universidadgrupo9.Vistas;
 
+import java.awt.PopupMenu;
+import javax.swing.JInternalFrame;
+
 /**
  *
  * @author charl
@@ -225,4 +228,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
+
+    
 }

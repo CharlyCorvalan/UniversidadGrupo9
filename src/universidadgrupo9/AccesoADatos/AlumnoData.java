@@ -5,10 +5,13 @@
  */
 package universidadgrupo9.AccesoADatos;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import java.awt.List;
 import java.sql.*;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import org.mariadb.jdbc.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,25 +51,28 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
     }
 
     public void modificarAlumno(Alumnos alumno) {
-        String sql = "UPDATE alumno SET dni=?,apellido=?,nombre=?,fechaNac=?"
-                + "WHERE idAlumno=?";
+        String sql = "update alumno set dni=? , apellido=? , nombre=?  ,fechaNac=?, estado=?"
+                + "where idAlumno=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, alumno.getDni());
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
             ps.setDate(4, Date.valueOf(alumno.getFechaNac()));
-            ps.setInt(5, alumno.getIdAlumno());
+            ps.setBoolean(5, alumno.isActivo());
+            ps.setInt(6, alumno.getIdAlumno());
+//            ResultSet resultado=ps.executeQuery();
+//            while (resultado.next()) {
+//                JOptionPane.showMessageDialog(null,"Alumno modificado");
+//                
+//            }
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Alumno modificado");
             }
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
-
         }
-
     }
 
     public void eliminarAlumno(int id) {
@@ -108,5 +114,27 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
             JOptionPane.showMessageDialog(null, " Error al acceder a la tabla Alumno " + ex.getMessage());
         }
         return alumnos;
+    }
+    public Alumnos buscarPorDni (int dni){
+        Alumnos alu=new Alumnos();
+        String sql="select idAlumno , dni, apellido, nombre ,fechaNac, estado from alumno where dni = ?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet resultado=ps.executeQuery();
+            while(resultado.next()){
+                alu.setIdAlumno(resultado.getInt("idAlumno"));
+                alu.setDni(resultado.getInt("dni"));
+                alu.setApellido(resultado.getString("apellido"));
+                alu.setNombre(resultado.getString("nombre"));
+                alu.setFechaNac(resultado.getDate("fechaNac").toLocalDate());
+                alu.setActivo(resultado.getBoolean("estado")); 
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se puede acceder a la tabla alumnos"+ex);
+        }
+        
+        return alu;
     }
 }

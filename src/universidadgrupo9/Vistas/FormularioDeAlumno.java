@@ -6,7 +6,9 @@ package universidadgrupo9.Vistas;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import universidadgrupo9.AccesoADatos.AlumnoData;
 import universidadgrupo9.AccesoADatos.Conexion;
 import universidadgrupo9.AccesoADatos.MateriaData;
@@ -19,11 +21,17 @@ import universidadgrupo9.Entidades.Materia;
  */
 public class FormularioDeAlumno extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form FormularioDeAlumno
-     */
+   private DefaultTableModel modelo=new DefaultTableModel(){
+   public boolean isCellEditable(int fila, int columna){
+       if(columna==2||columna==3||columna==4||columna==1){
+       return true;
+   }
+       return false;
+   }
+   };
     public FormularioDeAlumno() {
         initComponents();
+        cargarCabecera();
     }
 
     /**
@@ -52,6 +60,8 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
         FechaNacimiento = new com.toedter.calendar.JDateChooser();
         BBuscar = new javax.swing.JButton();
         Radio = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaAlumnos = new javax.swing.JTable();
 
         jLabel1.setText("Alumno");
 
@@ -124,14 +134,27 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
             }
         });
 
+        TablaAlumnos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(TablaAlumnos);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
@@ -139,66 +162,69 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
                             .addComponent(jLabel5))
                         .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(TextoDni, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
-                                    .addComponent(TextoApellido))
-                                .addGap(18, 18, 18)
-                                .addComponent(BBuscar))
                             .addComponent(Radio)
-                            .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(TextoDni)
+                                        .addComponent(TextoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BBuscar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel6)
-                        .addGap(38, 38, 38)
-                        .addComponent(FechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(bNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BEliminar)
                         .addGap(18, 18, 18)
                         .addComponent(BGuardar)
                         .addGap(18, 18, 18)
-                        .addComponent(BSalir)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addComponent(BSalir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(FechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(jLabel1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(TextoDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(TextoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TextoDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(BBuscar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(TextoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5)
+                        .addGap(6, 6, 6))
                     .addComponent(Radio))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
                     .addComponent(FechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bNuevo)
                     .addComponent(BEliminar)
                     .addComponent(BGuardar)
                     .addComponent(BSalir))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -213,22 +239,60 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TextoNombreActionPerformed
 
     private void BSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSalirActionPerformed
-        // TODO add your handling code here:
+        dispose();
          
     }//GEN-LAST:event_BSalirActionPerformed
 
     private void BGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGuardarActionPerformed
-        
+        int fila=TablaAlumnos.getSelectedRow();
+        if(fila !=-1){
+                int id=Integer.parseInt(TablaAlumnos.getValueAt(fila, 0).toString());
+                int dni=Integer.parseInt(TablaAlumnos.getValueAt(fila, 1).toString());
+                String apellido=TablaAlumnos.getValueAt(fila, 2).toString();
+                String nombre=TablaAlumnos.getValueAt(fila, 3).toString();
+                LocalDate feNac=(LocalDate)TablaAlumnos.getValueAt(fila, 4);
+                Boolean estado=(boolean)TablaAlumnos.getValueAt(fila, 5);
+                
+//                System.out.println(id);
+//                System.out.println(dni);
+//                System.out.println(apellido);
+//                System.out.println(nombre);
+//                System.out.println(feNac);
+//                System.out.println(estado);
+//                Conexion.getConexion();
+                AlumnoData guardar=new AlumnoData();
+                Alumnos alumno =new Alumnos(id, dni, apellido, nombre, feNac, estado);
+                guardar.modificarAlumno(alumno);
+    }
     }//GEN-LAST:event_BGuardarActionPerformed
 
     private void BBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarActionPerformed
-       
-        String apellido=TextoApellido.getText();
-        String nombre=TextoNombre.getText();
+        String documento=TextoDni.getText();
+        if(documento.equals("")){
+            JOptionPane.showMessageDialog(null, "Campo documento requerido esta vacio");
+        }else{
+            try {
+                int dni=Integer.parseInt(documento);
+                Conexion.getConexion();
+                AlumnoData buscarDNI=new AlumnoData();
+                cargarTabla(buscarDNI.buscarPorDni(dni));
+                
+            } catch (Exception e) {
+            }
+        }
+              
     }//GEN-LAST:event_BBuscarActionPerformed
 
     private void BEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEliminarActionPerformed
-        // TODO add your handling code here:
+         int filaS=TablaAlumnos.getSelectedRow();
+         if(filaS!=-1){
+             int id=Integer.parseInt(modelo.getValueAt(0, 0).toString());
+             Conexion.getConexion();
+             AlumnoData eliminar=new AlumnoData();
+             eliminar.eliminarAlumno(id);
+         }else{
+             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno");
+         }
     }//GEN-LAST:event_BEliminarActionPerformed
 
     private void TextoDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextoDniKeyTyped
@@ -280,6 +344,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JButton BSalir;
     private com.toedter.calendar.JDateChooser FechaNacimiento;
     private javax.swing.JCheckBox Radio;
+    private javax.swing.JTable TablaAlumnos;
     private javax.swing.JTextField TextoApellido;
     private javax.swing.JTextField TextoDni;
     private javax.swing.JTextField TextoNombre;
@@ -291,5 +356,18 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+private void cargarCabecera(){
+    modelo.addColumn("idAlumno");
+    modelo.addColumn("DNI");
+    modelo.addColumn("Apellido");
+    modelo.addColumn("Nombre");
+    modelo.addColumn("F. Nacimiento");
+    modelo.addColumn("Estado");
+    TablaAlumnos.setModel(modelo);
+}
+private void cargarTabla(Alumnos alumno){
+    modelo.addRow(new Object[]{alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre(),alumno.getFechaNac(),alumno.isActivo()});
+}
 }
