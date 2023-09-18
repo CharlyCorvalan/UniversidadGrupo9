@@ -246,12 +246,12 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     private void BGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGuardarActionPerformed
         int fila=TablaAlumnos.getSelectedRow();
         if(fila !=-1){
-                int id=Integer.parseInt(TablaAlumnos.getValueAt(fila, 0).toString());
-                int dni=Integer.parseInt(TablaAlumnos.getValueAt(fila, 1).toString());
-                String apellido=TablaAlumnos.getValueAt(fila, 2).toString();
-                String nombre=TablaAlumnos.getValueAt(fila, 3).toString();
-                LocalDate feNac=(LocalDate)TablaAlumnos.getValueAt(fila, 4);
-                Boolean estado=(boolean)TablaAlumnos.getValueAt(fila, 5);
+                int id=Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+                int dni=Integer.parseInt(modelo.getValueAt(fila, 1).toString());
+                String apellido=modelo.getValueAt(fila, 2).toString();
+                String nombre=modelo.getValueAt(fila, 3).toString();
+                LocalDate feNac=(LocalDate)modelo.getValueAt(fila, 4);
+                Boolean estado=(boolean)modelo.getValueAt(fila, 5);
                 
 //                System.out.println(id);
 //                System.out.println(dni);
@@ -286,7 +286,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     private void BEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEliminarActionPerformed
          int filaS=TablaAlumnos.getSelectedRow();
          if(filaS!=-1){
-             int id=Integer.parseInt(modelo.getValueAt(0, 0).toString());
+             int id=Integer.parseInt(modelo.getValueAt(filaS, 0).toString());
              Conexion.getConexion();
              AlumnoData eliminar=new AlumnoData();
              eliminar.eliminarAlumno(id);

@@ -51,7 +51,7 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
     }
 
     public void modificarAlumno(Alumnos alumno) {
-        String sql = "update alumno set dni=? , apellido=? , nombre=?  ,fechaNac=?, estado=?"
+        String sql = "update alumno set dni=? , apellido=? , nombre=?  ,fechaNac=?, estado=? "
                 + "where idAlumno=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
