@@ -67,9 +67,25 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 12)); // NOI18N
         jLabel3.setText("listado de materias");
 
+        CBSelecAlum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CBSelecAlumActionPerformed(evt);
+            }
+        });
+
         RBMateNoIns.setText("materias no inscriptas");
+        RBMateNoIns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBMateNoInsActionPerformed(evt);
+            }
+        });
 
         RBMateIns.setText("materias inscriptas");
+        RBMateIns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBMateInsActionPerformed(evt);
+            }
+        });
 
         jTableAlum.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -85,6 +101,11 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jTableAlum);
 
         jBIns.setText("Inscribir");
+        jBIns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBInsActionPerformed(evt);
+            }
+        });
 
         jBAnularIns.setText("Anular Inscripcion");
 
@@ -155,6 +176,24 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInsActionPerformed
+        
+    }//GEN-LAST:event_jBInsActionPerformed
+
+    private void RBMateNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateNoInsActionPerformed
+       
+    }//GEN-LAST:event_RBMateNoInsActionPerformed
+
+    private void RBMateInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateInsActionPerformed
+CBSelecAlum.getSelectedObjects();
+
+
+    }//GEN-LAST:event_RBMateInsActionPerformed
+
+    private void CBSelecAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBSelecAlumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CBSelecAlumActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
