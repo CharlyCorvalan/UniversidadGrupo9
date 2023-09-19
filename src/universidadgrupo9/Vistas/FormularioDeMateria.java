@@ -243,20 +243,25 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         int codigo = 0;
         if (cod.equals("")) {
            JOptionPane.showMessageDialog(null, "Debe colocar el id  abuscar");
-        } 
+        } else{
         try{
             codigo = Integer.parseInt(cod);
             Conexion.getConexion();
             MateriaData buscar = new MateriaData();
             buscar.buscarMateriaXid(codigo);
             Materia bus=new Materia();
+            if (bus != null) {
+            cargarTabla(bus);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró una materia con el ID especificado");
+        }
             bus=buscar.buscarMateriaXid(codigo);
             cargarTabla(bus);
         }catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Debe ingresar un numero entero"+ex);
         }
     }//GEN-LAST:event_BBuscarIdActionPerformed
-
+    }
     private void BotonRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRefrescarActionPerformed
         TextoAño.setText("");
         TextoCodigo.setText("");
