@@ -2,10 +2,12 @@
 package universidadgrupo9.AccesoADatos;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import universidadgrupo9.Entidades.Inscripcion;
+import universidadgrupo9.Entidades.Materia;
 
 
 public class InscripcionData {
@@ -46,9 +48,26 @@ public class InscripcionData {
         
     }
     
-    public void InscripcionPorAlum(int idAlum){
-        
-        
+    public ArrayList<Materia> InscripcionPorAlum(int idAlum){
+        Materia materia=new Materia();
+        ArrayList<Materia> mat =new ArrayList<>();
+       String cons="SELECT 'idMateria', nombre , año FROM materia JOIN inscripcion ON "
+               + "(materia.idMateria=inscripcion.idMateria) WHERE idAlumno = ?";
+        try {
+            PreparedStatement ps=con.prepareStatement(cons);
+            ps.setInt(1, idAlum);
+           ResultSet num= ps.executeQuery();
+           if(num.next()){
+               materia.setIdMateria(num.getInt("idMateria"));
+               materia.setNombre(num.getString("nombre"));
+               materia.setAñoMateria(num.getInt("año"));
+               mat.add(materia);
+           }
+           
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Se ah conectado con exito a la base de datos " +ex);
+        }
+        return mat;
     }
     
 }
