@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import sun.java2d.loops.FillSpans;
 import universidadgrupo9.Entidades.Inscripcion;
 import universidadgrupo9.Entidades.Materia;
 
@@ -90,6 +91,22 @@ public class InscripcionData {
         }
         return mat;
         
+        
+    }
+    
+    public void AnularInscripcionAlum(int idAlumno, int idMateria){
+        String sql="DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+             ps.setInt(1, idAlumno);
+            ps.setInt(2, idMateria);
+            int filas=ps.executeUpdate();
+            if(filas>0){
+                JOptionPane.showMessageDialog(null,"inscripcion borrada exitosamente");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error de conexion, no se pudo borrar la inscripcion "+ex);
+        }
         
     }
 }
