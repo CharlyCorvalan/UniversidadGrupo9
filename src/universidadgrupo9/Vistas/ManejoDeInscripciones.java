@@ -5,10 +5,13 @@
 package universidadgrupo9.Vistas;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import universidadgrupo9.AccesoADatos.AlumnoData;
+import universidadgrupo9.AccesoADatos.InscripcionData;
 import universidadgrupo9.Entidades.Alumnos;
+import universidadgrupo9.Entidades.Materia;
 
 /**
  *
@@ -45,6 +48,7 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         jBIns = new javax.swing.JButton();
         jBAnularIns = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
+        jBLimpiar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,6 +114,18 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         jBAnularIns.setText("Anular Inscripcion");
 
         jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
+
+        jBLimpiar.setText("Limpiar");
+        jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,7 +136,9 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(RBMateIns)
-                        .addGap(111, 111, 111)
+                        .addGap(22, 22, 22)
+                        .addComponent(jBLimpiar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(RBMateNoIns)
                         .addGap(14, 14, 14))
                     .addGroup(layout.createSequentialGroup()
@@ -163,10 +181,11 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(RBMateNoIns)
-                    .addComponent(RBMateIns))
+                    .addComponent(RBMateIns)
+                    .addComponent(jBLimpiar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBIns)
                     .addComponent(jBAnularIns)
@@ -182,11 +201,27 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBInsActionPerformed
 
     private void RBMateNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateNoInsActionPerformed
-       
+       InscripcionData alu=new InscripcionData();
+
+ String alum=CBSelecAlum.getSelectedItem().toString();
+    char a= alum.charAt(0);
+        
+        int aa=Integer.parseInt(a+"");
+        ArrayList<Materia> aray=new ArrayList<>(alu.NoInscripcionPorAlum(aa));
+        cargarTablaLista(aray);
     }//GEN-LAST:event_RBMateNoInsActionPerformed
 
     private void RBMateInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateInsActionPerformed
-CBSelecAlum.getSelectedObjects();
+InscripcionData alu=new InscripcionData();
+
+ String alum=CBSelecAlum.getSelectedItem().toString();
+    char a= alum.charAt(0);
+        
+        int aa=Integer.parseInt(a+"");
+        ArrayList<Materia> aray=new ArrayList<>(alu.InscripcionPorAlum(aa));
+        cargarTablaLista(aray);
+        
+   
 
 
     }//GEN-LAST:event_RBMateInsActionPerformed
@@ -195,6 +230,20 @@ CBSelecAlum.getSelectedObjects();
         // TODO add your handling code here:
     }//GEN-LAST:event_CBSelecAlumActionPerformed
 
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
+        CBSelecAlum.setSelectedIndex(0);
+        RBMateIns.setSelected(false);
+        RBMateNoIns.setSelected(false);
+        int numFil=jTableAlum.getRowCount();
+        for (int i=numFil-1;i>-1;i--) {
+            modelo.removeRow(i);
+        }
+    }//GEN-LAST:event_jBLimpiarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CBSelecAlum;
@@ -202,6 +251,7 @@ CBSelecAlum.getSelectedObjects();
     private javax.swing.JRadioButton RBMateNoIns;
     private javax.swing.JButton jBAnularIns;
     private javax.swing.JButton jBIns;
+    private javax.swing.JButton jBLimpiar;
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -215,8 +265,7 @@ public void CargarComboBox(){
   AlumnoData alD=new AlumnoData();
     //CBSelecAlum.setModel(new DefaultComboBoxModel<>(alD.listarAlumnos()));
 for (Alumnos alum : alD.listarAlumnos()) {
-//      String dni= String.valueOf(alum.getDni());
-//    String id=String.valueOf(alum.getIdAlumno());
+
 
         CBSelecAlum.addItem(alum.toString());
     }
@@ -228,5 +277,12 @@ private void CargarCabecera(){
    modelo.addColumn("AÑO");
    jTableAlum.setModel(modelo);
     
+}
+public void cargarTablaLista(ArrayList<Materia> list){
+   
+    for (Materia elem : list) {
+       modelo.addRow(new Object[]{elem.getIdMateria(),elem.getNombre(),elem.getAñoMateria()});
+    }
+   
 }
 }

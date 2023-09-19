@@ -51,8 +51,8 @@ public class InscripcionData {
     public ArrayList<Materia> InscripcionPorAlum(int idAlum){
         Materia materia=new Materia();
         ArrayList<Materia> mat =new ArrayList<>();
-       String cons="SELECT 'idMateria', nombre , año FROM materia JOIN inscripcion ON "
-               + "(materia.idMateria=inscripcion.idMateria) WHERE idAlumno = ?";
+       String cons="SELECT * FROM materia JOIN inscripcion ON "
+               + "(materia.idMateria=inscripcion.idMateria) WHERE idAlumno =?";
         try {
             PreparedStatement ps=con.prepareStatement(cons);
             ps.setInt(1, idAlum);
@@ -65,10 +65,32 @@ public class InscripcionData {
            }
            
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Se ah conectado con exito a la base de datos " +ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " +ex);
         }
         return mat;
     }
-    
+    public ArrayList<Materia> NoInscripcionPorAlum(int idAlum){
+        Materia materia=new Materia();
+        ArrayList<Materia> mat =new ArrayList<>();
+       String cons="SELECT * FROM materia JOIN inscripcion ON "
+               + "(materia.idMateria=inscripcion.idMateria) WHERE idAlumno !=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(cons);
+            ps.setInt(1, idAlum);
+           ResultSet num= ps.executeQuery();
+           if(num.next()){
+               materia.setIdMateria(num.getInt("idMateria"));
+               materia.setNombre(num.getString("nombre"));
+               materia.setAñoMateria(num.getInt("año"));
+               mat.add(materia);
+           }
+           
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " +ex);
+        }
+        return mat;
+        
+        
+    }
 }
 
