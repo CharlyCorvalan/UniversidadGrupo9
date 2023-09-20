@@ -62,7 +62,7 @@ public class InscripcionData {
                materia.setIdMateria(num.getInt("idMateria"));
                materia.setNombre(num.getString("nombre"));
                materia.setAñoMateria(num.getInt("año"));
-               mat.add(materia);
+               mat.add(materia); 
            }
            
         } catch (SQLException ex) {
@@ -87,7 +87,7 @@ public class InscripcionData {
            }
            
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " +ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla" +ex);
         }
         return mat;
         
