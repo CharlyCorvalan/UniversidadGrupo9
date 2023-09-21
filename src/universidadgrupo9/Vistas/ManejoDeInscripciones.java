@@ -7,11 +7,13 @@ package universidadgrupo9.Vistas;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import universidadgrupo9.AccesoADatos.AlumnoData;
 import universidadgrupo9.AccesoADatos.InscripcionData;
 import universidadgrupo9.AccesoADatos.MateriaData;
 import universidadgrupo9.Entidades.Alumnos;
+import universidadgrupo9.Entidades.Inscripcion;
 import universidadgrupo9.Entidades.Materia;
 
 /**
@@ -114,6 +116,11 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         });
 
         jBAnularIns.setText("Anular Inscripcion");
+        jBAnularIns.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAnularInsActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -199,18 +206,42 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInsActionPerformed
+        InscripcionData insAl = new InscripcionData();
+        int numNota = 0;
+        int filaselec = jTableAlum.getSelectedRow();
+        int idMat = Integer.parseInt(modelo.getValueAt(filaselec, 0).toString());
+
+        if (filaselec <= -1) {
+            JOptionPane.showMessageDialog(null, "seleccione una materia antes de continuar.");
+        } else {
+            try {
+                String alum = CBSelecAlum.getSelectedItem().toString();
+                String alum2 = alum.substring(0, 1);
+                int a = Integer.parseInt(alum2);
+                JOptionPane.showInputDialog(numNota);
+                Alumnos alu = new Alumnos();
+                Materia mater = new Materia();
+                mater.setIdMateria(idMat);
+                alu.setIdAlumno(a);
+                Inscripcion ins = new Inscripcion(numNota, alu, mater);
+                insAl.guardarInscripcion(ins);
+            } catch (NumberFormatException | NullPointerException ex) {
+                JOptionPane.showMessageDialog(null, "Error, verifique los datos ingresados " + ex);
+            }
+
+        }
 
     }//GEN-LAST:event_jBInsActionPerformed
 
     private void RBMateNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateNoInsActionPerformed
         InscripcionData alu = new InscripcionData();
-        
+
         String alum = CBSelecAlum.getSelectedItem().toString();
         String alum2 = alum.substring(0, 1);
         int a = Integer.parseInt(alum2);
         int aa = Integer.parseInt(a + "");
         ArrayList<Materia> aray = new ArrayList<>(alu.NoInscripcionPorAlum(a));
-      
+
         cargarTablaLista(aray);
 
     }//GEN-LAST:event_RBMateNoInsActionPerformed
@@ -223,7 +254,6 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         String alum2 = alum.substring(0, 1);
         int a = Integer.parseInt(alum2);
 
-     
         ArrayList<Materia> aray = new ArrayList<>();
         aray = alu.InscripcionPorAlum(a);
         cargarTablaLista(aray);
@@ -248,6 +278,34 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
             modelo.removeRow(i);
         }
     }//GEN-LAST:event_jBLimpiarActionPerformed
+
+    private void jBAnularInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAnularInsActionPerformed
+        // TODO add your handling code here:
+        InscripcionData insAl = new InscripcionData();
+        int numNota = 0;
+        int filaselec = jTableAlum.getSelectedRow();
+        int idMat = Integer.parseInt(modelo.getValueAt(filaselec, 0).toString());
+
+        if (filaselec <= -1) {
+            JOptionPane.showMessageDialog(null, "seleccione una materia antes de continuar.");
+        } else {
+            try {
+                String alum = CBSelecAlum.getSelectedItem().toString();
+                String alum2 = alum.substring(0, 1);
+                int a = Integer.parseInt(alum2);
+                JOptionPane.showInputDialog(numNota);
+                Alumnos alu = new Alumnos();
+                Materia mater = new Materia();
+                mater.setIdMateria(idMat);
+                alu.setIdAlumno(a);
+                Inscripcion ins = new Inscripcion(numNota, alu, mater);
+                insAl.guardarInscripcion(ins);
+            } catch (NumberFormatException | NullPointerException ex) {
+                JOptionPane.showMessageDialog(null, "Error, verifique los datos ingresados " + ex);
+            }
+
+        }
+    }//GEN-LAST:event_jBAnularInsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
