@@ -137,6 +137,32 @@ public class InscripcionData {
         
     }
     
+    public ArrayList<Inscripcion> InscripcionPorID(int idAlumno){
+        String sql="SELECT inscripcion.idMateria, materia.nombre, nota FROM inscripcion join materia on inscripcion.idMateria"
+                + "=materia.idMateria WHERE inscripcion.idAlumno=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                Inscripcion insc=new Inscripcion();
+                Materia mate=new Materia();
+                
+               mate.setIdMateria(rs.getInt("idMateria"));
+               mate.setNombre(rs.getString("nombre"));
+               insc.setNota(rs.getDouble("nota"));
+               insc.setMateria(mate);
+               ins.add(insc);
+               
+               
+               
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error no se pudo conectar a la base de datos");
+        }
+        
+       return ins;
+    }
    
 }
 

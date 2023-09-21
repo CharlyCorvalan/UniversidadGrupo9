@@ -282,10 +282,8 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
     private void jBAnularInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAnularInsActionPerformed
         // TODO add your handling code here:
         InscripcionData insAl = new InscripcionData();
-        int numNota = 0;
         int filaselec = jTableAlum.getSelectedRow();
         int idMat = Integer.parseInt(modelo.getValueAt(filaselec, 0).toString());
-
         if (filaselec <= -1) {
             JOptionPane.showMessageDialog(null, "seleccione una materia antes de continuar.");
         } else {
@@ -293,13 +291,9 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                 String alum = CBSelecAlum.getSelectedItem().toString();
                 String alum2 = alum.substring(0, 1);
                 int a = Integer.parseInt(alum2);
-                JOptionPane.showInputDialog(numNota);
-                Alumnos alu = new Alumnos();
                 Materia mater = new Materia();
                 mater.setIdMateria(idMat);
-                alu.setIdAlumno(a);
-                Inscripcion ins = new Inscripcion(numNota, alu, mater);
-                insAl.guardarInscripcion(ins);
+                insAl.AnularInscripcionAlum(a, idMat);
             } catch (NumberFormatException | NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Error, verifique los datos ingresados " + ex);
             }
