@@ -112,11 +112,7 @@ public class MateriaData {
                 materiaA.setNombre(resultado.getString("nombre"));
                 materiaA.setAñoMateria(resultado.getInt("año"));
                 materiaA.setActivo(resultado.getBoolean("estado"));
-//                System.out.println("iDMateria: "+resultado.getInt("idMateria"));
-//                System.out.println("Nombre: "+resultado.getString("nombre"));
-//                System.out.println("Año: "+resultado.getInt("año"));
-//                System.out.println("Estado: "+resultado.getBoolean("estado"));
-//                System.out.println("=============================================");
+               
                 materia.add(materiaA);
             }
         } catch (SQLException ex) {
@@ -135,8 +131,9 @@ public class MateriaData {
                 mate.setIdMateria(rs.getInt("idMateria"));
                 mate.setNombre(rs.getString("nombre"));
                 mate.setAñoMateria(rs.getInt("año"));
-                mate.setActivo(rs.getBoolean("estado"));
+                mate.setActivo(rs.getBoolean("estado"));               
                 materia.add(mate);
+                
             }
             ps.close();
         } catch (SQLException ex) {

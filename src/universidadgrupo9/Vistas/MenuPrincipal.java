@@ -61,11 +61,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 531, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 374, Short.MAX_VALUE)
+            .addGap(0, 395, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Alumno");
@@ -204,11 +204,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipal().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new MenuPrincipal().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

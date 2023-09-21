@@ -137,4 +137,24 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
         
         return alu;
     }
+    public Alumnos buscarPorId(int id){
+    Alumnos alum=new Alumnos();
+    String sql="Select  idAlumno , dni, apellido, nombre ,fechaNac, estado from alumno where dni = ?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet resultado=ps.executeQuery();
+            while(resultado.next()){
+                alum.setIdAlumno(resultado.getInt("idAlumno"));
+                alum.setDni(resultado.getInt("dni"));
+                alum.setApellido(resultado.getString("apellido"));
+                alum.setNombre(resultado.getString("nombre"));
+                alum.setFechaNac(resultado.getDate("fechaNac").toLocalDate());
+                alum.setActivo(resultado.getBoolean("estado")); 
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return alum;
+    }
 }

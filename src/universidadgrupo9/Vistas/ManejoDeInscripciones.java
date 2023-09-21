@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import universidadgrupo9.AccesoADatos.AlumnoData;
 import universidadgrupo9.AccesoADatos.InscripcionData;
+import universidadgrupo9.AccesoADatos.MateriaData;
 import universidadgrupo9.Entidades.Alumnos;
 import universidadgrupo9.Entidades.Materia;
 
@@ -19,7 +20,8 @@ import universidadgrupo9.Entidades.Materia;
  */
 public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
 
-    private DefaultTableModel modelo=new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel();
+
     public ManejoDeInscripciones() {
         initComponents();
         CargarCabecera();
@@ -197,31 +199,34 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInsActionPerformed
-        
+
     }//GEN-LAST:event_jBInsActionPerformed
 
     private void RBMateNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateNoInsActionPerformed
-       InscripcionData alu=new InscripcionData();
-
- String alum=CBSelecAlum.getSelectedItem().toString();
-    char a= alum.charAt(0);
+        InscripcionData alu = new InscripcionData();
         
-        int aa=Integer.parseInt(a+"");
-        ArrayList<Materia> aray=new ArrayList<>(alu.NoInscripcionPorAlum(aa));
+        String alum = CBSelecAlum.getSelectedItem().toString();
+        String alum2 = alum.substring(0, 1);
+        int a = Integer.parseInt(alum2);
+        int aa = Integer.parseInt(a + "");
+        ArrayList<Materia> aray = new ArrayList<>(alu.NoInscripcionPorAlum(a));
+      
         cargarTablaLista(aray);
+
     }//GEN-LAST:event_RBMateNoInsActionPerformed
 
     private void RBMateInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateInsActionPerformed
-InscripcionData alu=new InscripcionData();
 
- String alum=CBSelecAlum.getSelectedItem().toString();
-    char a= alum.charAt(0);
-        
-        int aa=Integer.parseInt(a+"");
-        ArrayList<Materia> aray=new ArrayList<>(alu.InscripcionPorAlum(aa));
+        InscripcionData alu = new InscripcionData();
+
+        String alum = CBSelecAlum.getSelectedItem().toString();
+        String alum2 = alum.substring(0, 1);
+        int a = Integer.parseInt(alum2);
+
+     
+        ArrayList<Materia> aray = new ArrayList<>();
+        aray = alu.InscripcionPorAlum(a);
         cargarTablaLista(aray);
-        
-   
 
 
     }//GEN-LAST:event_RBMateInsActionPerformed
@@ -238,8 +243,8 @@ InscripcionData alu=new InscripcionData();
         CBSelecAlum.setSelectedIndex(0);
         RBMateIns.setSelected(false);
         RBMateNoIns.setSelected(false);
-        int numFil=jTableAlum.getRowCount();
-        for (int i=numFil-1;i>-1;i--) {
+        int numFil = jTableAlum.getRowCount();
+        for (int i = numFil - 1; i > -1; i--) {
             modelo.removeRow(i);
         }
     }//GEN-LAST:event_jBLimpiarActionPerformed
@@ -261,28 +266,28 @@ InscripcionData alu=new InscripcionData();
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableAlum;
     // End of variables declaration//GEN-END:variables
-public void CargarComboBox(){
-  AlumnoData alD=new AlumnoData();
-    //CBSelecAlum.setModel(new DefaultComboBoxModel<>(alD.listarAlumnos()));
-for (Alumnos alum : alD.listarAlumnos()) {
+public void CargarComboBox() {
+        AlumnoData alD = new AlumnoData();
+        //CBSelecAlum.setModel(new DefaultComboBoxModel<>(alD.listarAlumnos()));
+        for (Alumnos alum : alD.listarAlumnos()) {
 
-
-        CBSelecAlum.addItem(alum.toString());
+            CBSelecAlum.addItem(alum.toString());
+        }
     }
-}
 
-private void CargarCabecera(){
-   modelo.addColumn("ID");
-   modelo.addColumn("NOMBRE");
-   modelo.addColumn("AÑO");
-   jTableAlum.setModel(modelo);
-    
-}
-public void cargarTablaLista(ArrayList<Materia> list){
-   
-    for (Materia elem : list) {
-       modelo.addRow(new Object[]{elem.getIdMateria(),elem.getNombre(),elem.getAñoMateria()});
+    private void CargarCabecera() {
+        modelo.addColumn("ID");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("AÑO");
+        jTableAlum.setModel(modelo);
+
     }
-   
-}
+
+    public void cargarTablaLista(ArrayList<Materia> list) {
+
+        for (Materia elem : list) {
+            modelo.addRow(new Object[]{elem.getIdMateria(), elem.getNombre(), elem.getAñoMateria()});
+        }
+
+    }
 }
