@@ -18,7 +18,14 @@ import universidadgrupo9.Entidades.Materia;
 public class FormularioDeMateria extends javax.swing.JInternalFrame {
     
 
-    private DefaultTableModel modelo=new DefaultTableModel();
+    private DefaultTableModel modelo=new DefaultTableModel(){
+        public boolean isCellEditable (int fila, int columna){
+            if(columna==1||columna==2||columna==3){
+                return true;
+            }
+            return false;
+        }
+    };
     public FormularioDeMateria() {
         initComponents();
        
@@ -248,15 +255,13 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
             codigo = Integer.parseInt(cod);
             Conexion.getConexion();
             MateriaData buscar = new MateriaData();
-            buscar.buscarMateriaXid(codigo);
             Materia bus=new Materia();
+            bus=buscar.buscarMateriaXid(codigo);
             if (bus != null) {
             cargarTabla(bus);
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró una materia con el ID especificado");
         }
-            bus=buscar.buscarMateriaXid(codigo);
-            cargarTabla(bus);
         }catch(NumberFormatException ex){
             JOptionPane.showMessageDialog(null, "Debe ingresar un numero entero"+ex);
         }
@@ -267,6 +272,10 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         TextoCodigo.setText("");
         TextoNombre.setText("");
         checkbox.setState(false);
+        int fila=tabla.getRowCount();
+        for (int i = fila-1; i >-1; i--) {
+            modelo.removeRow(i);
+        }
     }//GEN-LAST:event_BotonRefrescarActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed

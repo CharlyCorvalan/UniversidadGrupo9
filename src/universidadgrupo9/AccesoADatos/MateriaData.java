@@ -87,12 +87,7 @@ public class MateriaData {
                 materiaID.setIdMateria(resultado.getInt("idMateria"));
                 materiaID.setNombre(resultado.getString("nombre"));
                 materiaID.setAñoMateria(resultado.getInt("año"));
-                materiaID.setActivo(resultado.getBoolean("estado"));
-//                System.out.println("idMateria: "+resultado.getInt("idMateria"));
-//                System.out.println("Nombre: "+resultado.getString("nombre"));
-//                System.out.println("Año: "+resultado.getInt("año"));
-//                System.out.println("Estado: "+resultado.getBoolean("estado"));
-
+                materiaID.setActivo(resultado.getBoolean("estado"));           
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a tabla materia" + ex);
