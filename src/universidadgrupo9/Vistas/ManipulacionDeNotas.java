@@ -27,7 +27,6 @@ public class ManipulacionDeNotas extends javax.swing.JInternalFrame {
 
             return false;
         }
-    
 
     };
 
@@ -35,6 +34,7 @@ public class ManipulacionDeNotas extends javax.swing.JInternalFrame {
         initComponents();
         CargarComboBox();
         CargarCabecera();
+        limpiarFilas();
     }
 
     /**
@@ -143,6 +143,7 @@ public class ManipulacionDeNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jCSelecAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCSelecAlumActionPerformed
+       limpiarFilas();
         InscripcionData alu = new InscripcionData();
 
         String alum = jCSelecAlum.getSelectedItem().toString();
@@ -171,15 +172,9 @@ public class ManipulacionDeNotas extends javax.swing.JInternalFrame {
         } catch (NumberFormatException | NullPointerException ex) {
             JOptionPane.showMessageDialog(null, "Error, ingrese una nota numerica " + ex);
 
-        }finally{
-            int filTotal=modelo.getRowCount();
-            for (int i = filTotal; i >-1; i--) {
-                modelo.removeRow(i);
-                
-            }
-            jCSelecAlum.setSelectedIndex(0);
         }
-            
+        limpiarFilas();
+        jCSelecAlum.setSelectedIndex(0);
         // TODO add your handling code here:
     }//GEN-LAST:event_jBGuardarActionPerformed
 
@@ -215,6 +210,15 @@ public class ManipulacionDeNotas extends javax.swing.JInternalFrame {
 
         for (Inscripcion elem : list) {
             modelo.addRow(new Object[]{elem.getMateria().getIdMateria(), elem.getMateria().getNombre(), elem.getNota()});
+        }
+
+    }
+
+    public void limpiarFilas() {
+        int filTotal = modelo.getRowCount() - 1;
+        for (int i = filTotal; i > -1; i--) {
+            modelo.removeRow(i);
+
         }
 
     }

@@ -55,8 +55,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        escritorio.setBackground(new java.awt.Color(153, 255, 153));
-        escritorio.setForeground(new java.awt.Color(255, 51, 255));
+        escritorio.setBackground(new java.awt.Color(153, 153, 153));
+        escritorio.setForeground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);

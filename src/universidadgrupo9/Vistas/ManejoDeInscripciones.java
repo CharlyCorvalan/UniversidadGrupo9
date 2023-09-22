@@ -23,11 +23,14 @@ import universidadgrupo9.Entidades.Materia;
 public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel();
+    private boolean mateIns = false;
+    private boolean mateNoIns = false;
 
     public ManejoDeInscripciones() {
         initComponents();
         CargarCabecera();
         CargarComboBox();
+        limpiarFilas();
     }
 
     /**
@@ -206,6 +209,7 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInsActionPerformed
+        limpiarFilas();
         InscripcionData insAl = new InscripcionData();
         int numNota = 0;
         int filaselec = jTableAlum.getSelectedRow();
@@ -218,12 +222,12 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                 String alum = CBSelecAlum.getSelectedItem().toString();
                 String alum2 = alum.substring(0, 1);
                 int a = Integer.parseInt(alum2);
-                JOptionPane.showInputDialog(numNota);
+                int nota = Integer.parseInt(JOptionPane.showInputDialog(numNota));
                 Alumnos alu = new Alumnos();
                 Materia mater = new Materia();
                 mater.setIdMateria(idMat);
                 alu.setIdAlumno(a);
-                Inscripcion ins = new Inscripcion(numNota, alu, mater);
+                Inscripcion ins = new Inscripcion(nota, alu, mater);
                 insAl.guardarInscripcion(ins);
             } catch (NumberFormatException | NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Error, verifique los datos ingresados " + ex);
@@ -234,6 +238,9 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBInsActionPerformed
 
     private void RBMateNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateNoInsActionPerformed
+        limpiarFilas();
+        mateIns = false;
+        mateNoIns = true;
         InscripcionData alu = new InscripcionData();
 
         String alum = CBSelecAlum.getSelectedItem().toString();
@@ -247,7 +254,9 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_RBMateNoInsActionPerformed
 
     private void RBMateInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateInsActionPerformed
-
+        limpiarFilas();
+        mateNoIns = false;
+        mateIns = true;
         InscripcionData alu = new InscripcionData();
 
         String alum = CBSelecAlum.getSelectedItem().toString();
@@ -339,6 +348,15 @@ public void CargarComboBox() {
 
         for (Materia elem : list) {
             modelo.addRow(new Object[]{elem.getIdMateria(), elem.getNombre(), elem.getAñoMateria()});
+        }
+
+    }
+
+    public void limpiarFilas() {
+        int filTotal = modelo.getRowCount() - 1;
+        for (int i = filTotal; i > -1; i--) {
+            modelo.removeRow(i);
+
         }
 
     }
