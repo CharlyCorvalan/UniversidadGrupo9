@@ -21,6 +21,7 @@ public class InscripcionData {
     private AlumnoData alum;
     private ArrayList<Inscripcion> ins=new ArrayList<>();
     private ArrayList<Materia> materia =new ArrayList<>();
+    private ArrayList<Alumnos> alumno=new ArrayList<>();
 
     public InscripcionData() {
         con=Conexion.getConexion();
@@ -179,6 +180,26 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error no se pudo conectar a la base de datos "+ex);
         }
         
+    }
+    public  ArrayList<Alumnos> obtenerAlumnosPorMateria(int idMateria){
+        String sql="Select alumno.idAlumno, dni, alumno.Apellido, alumno.Nombre FROM alumno JOIN inscripcion "
+                + "ON (inscripcion.idAlumno=alumno.idAlumno) WHERE inscripcion.idMateria=?";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, idMateria);
+            ResultSet resultado=ps.executeQuery();
+            while(resultado.next()){
+                Alumnos al=new Alumnos();
+                al.setIdAlumno(resultado.getInt("idAlumno"));
+                al.setDni(resultado.getInt("dni"));
+                al.setApellido(resultado.getString("apellido"));
+                al.setNombre(resultado.getString("nombre"));
+                alumno.add(al);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
+        }
+        return alumno;
     }
 }
 
