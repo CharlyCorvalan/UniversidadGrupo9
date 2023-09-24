@@ -209,7 +209,7 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInsActionPerformed
-        limpiarFilas();
+        
         InscripcionData insAl = new InscripcionData();
         int numNota = 0;
         int filaselec = jTableAlum.getSelectedRow();
@@ -234,6 +234,7 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
             }
 
         }
+        limpiarFilas();
 
     }//GEN-LAST:event_jBInsActionPerformed
 

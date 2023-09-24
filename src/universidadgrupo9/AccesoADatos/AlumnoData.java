@@ -60,12 +60,7 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
             ps.setString(3, alumno.getNombre());
             ps.setDate(4, Date.valueOf(alumno.getFechaNac()));
             ps.setBoolean(5, alumno.isActivo());
-            ps.setInt(6, alumno.getIdAlumno());
-//            ResultSet resultado=ps.executeQuery();
-//            while (resultado.next()) {
-//                JOptionPane.showMessageDialog(null,"Alumno modificado");
-//                
-//            }
+            ps.setInt(6, alumno.getIdAlumno());  
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Alumno modificado");

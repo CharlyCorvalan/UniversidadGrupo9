@@ -4,8 +4,10 @@
  */
 package universidadgrupo9.Vistas;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,14 +23,15 @@ import universidadgrupo9.Entidades.Materia;
  */
 public class FormularioDeAlumno extends javax.swing.JInternalFrame {
 
-   private DefaultTableModel modelo=new DefaultTableModel(){
-   public boolean isCellEditable(int fila, int columna){
-       if(columna==2||columna==3||columna==4||columna==1){
-       return true;
-   }
-       return false;
-   }
-   };
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int fila, int columna) {
+            if (columna == 1|| columna == 2 || columna == 3) {
+                return true;
+            }
+            return false;
+        }
+    };
+
     public FormularioDeAlumno() {
         initComponents();
         cargarCabecera();
@@ -148,40 +151,47 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(TextoDni)
-                                        .addComponent(TextoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BBuscar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(FechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Radio)))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel5))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(161, 161, 161)
+                                                .addComponent(Radio))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(80, 80, 80)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(TextoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(TextoDni, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(BBuscar))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(56, 56, 56)
+                                        .addComponent(FechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(136, 136, 136)
+                                        .addComponent(jLabel1)))
+                                .addGap(0, 72, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
                         .addComponent(bNuevo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BEliminar)
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addComponent(BGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(BSalir))
-                    .addComponent(jLabel6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addComponent(BSalir)
+                        .addGap(37, 37, 37))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,14 +205,14 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addComponent(BBuscar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(TextoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
                         .addComponent(jLabel5)
                         .addGap(6, 6, 6))
                     .addComponent(Radio))
@@ -211,8 +221,8 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(FechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bNuevo)
                     .addComponent(BEliminar)
@@ -234,72 +244,84 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
 
     private void BSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSalirActionPerformed
         dispose();
-         
+
     }//GEN-LAST:event_BSalirActionPerformed
 
     private void BGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGuardarActionPerformed
-        int fila=TablaAlumnos.getSelectedRow();
-        if(fila !=-1){
-                int id=Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-                int dni=Integer.parseInt(modelo.getValueAt(fila, 1).toString());
-                String apellido=modelo.getValueAt(fila, 2).toString();
-                String nombre=modelo.getValueAt(fila, 3).toString();
-                LocalDate feNac=(LocalDate)modelo.getValueAt(fila, 4);
-                Boolean estado=(boolean)modelo.getValueAt(fila, 5);
-                
-//                System.out.println(id);
-//                System.out.println(dni);
-//                System.out.println(apellido);
-//                System.out.println(nombre);
-//                System.out.println(feNac);
-//                System.out.println(estado);
-//                Conexion.getConexion();
-                AlumnoData guardar=new AlumnoData();
-                Alumnos alumno =new Alumnos(id, dni, apellido, nombre, feNac, estado);
-                guardar.modificarAlumno(alumno);
-    }
+        int fila = TablaAlumnos.getSelectedRow();
+        LocalDate feNac;
+        
+        if (fila != -1) {
+            try{
+            int id = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+            int dni = Integer.parseInt(modelo.getValueAt(fila, 1).toString());
+            String apellido = modelo.getValueAt(fila, 2).toString();
+            String nombre = modelo.getValueAt(fila, 3).toString();
+            
+            feNac = FechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Boolean estado = Radio.isSelected();
+
+            AlumnoData guardar = new AlumnoData();
+            Alumnos alumno = new Alumnos(id, dni, apellido, nombre, feNac, estado);
+            guardar.modificarAlumno(alumno);
+            JOptionPane.showMessageDialog(null, "Alumno modificado exitosamente");
+            }catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Campo de DNI solo recibe numeros enteros");
+            }
+            }
+        limpiarTabla();
+        FechaNacimiento.setDate(null);
+        Radio.setSelected(false);
     }//GEN-LAST:event_BGuardarActionPerformed
 
     private void BBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarActionPerformed
-        String documento=TextoDni.getText();
-        if(documento.equals("")){
+        limpiarTabla();
+        String documento = TextoDni.getText();
+        if (documento.equals("")) {
             JOptionPane.showMessageDialog(null, "Campo documento requerido esta vacio");
-        }else{
+        } else {
             try {
-                int dni=Integer.parseInt(documento);
+                int dni = Integer.parseInt(documento);
                 Conexion.getConexion();
-                AlumnoData buscarDNI=new AlumnoData();
-                cargarTabla(buscarDNI.buscarPorDni(dni));
-                
+                AlumnoData buscarDNI = new AlumnoData();
+                Alumnos alu = new Alumnos();
+                alu = buscarDNI.buscarPorDni(dni);
+                if (alu.getIdAlumno() == 0) {
+                    JOptionPane.showMessageDialog(null, "DNI no encontrado, intente nuevamente");
+                } else {
+                    cargarTabla(alu);
+                    Date fecha=new Date();
+                    LocalDate fe;
+                    fe=alu.getFechaNac();
+                    fecha=Date.from(fe.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    FechaNacimiento.setDate(fecha);
+                }
+
             } catch (NumberFormatException e) {
-               JOptionPane.showMessageDialog(null, "El valor ingresado no es un número válido"); 
+                JOptionPane.showMessageDialog(null, "El valor ingresado no es un número válido");
             }
         }
-              
+        TextoDni.setText("");
+
     }//GEN-LAST:event_BBuscarActionPerformed
 
     private void BEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEliminarActionPerformed
-         int filaS=TablaAlumnos.getSelectedRow();
-         if(filaS!=-1){
-             
-             Object valorEnPrimeraColumna = modelo.getValueAt(filaS, 0);
-             
-             if (valorEnPrimeraColumna != null) {
-        try {
-             int id=Integer.parseInt(modelo.getValueAt(filaS, 0).toString());
-             Conexion.getConexion();
-             AlumnoData eliminar=new AlumnoData();
-             eliminar.eliminarAlumno(id);
-             
-            } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El valor en la primera columna no es un número válido");
+        int filaS = TablaAlumnos.getSelectedRow();
+        if (filaS != -1) {
+                try {
+                    int id = Integer.parseInt(modelo.getValueAt(filaS, 0).toString());
+                    Conexion.getConexion();
+                    AlumnoData eliminar = new AlumnoData();
+                    eliminar.eliminarAlumno(id);
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "El valor en la primera columna no es un número válido");
+                }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno / Busque por DNI");
         }
-    } else {
-        JOptionPane.showMessageDialog(null, "La primera columna está vacía");
-    } 
-         }else{
-             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno");
-         }
+        limpiarTabla();
+        
     }//GEN-LAST:event_BEliminarActionPerformed
 
     private void TextoDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextoDniKeyTyped
@@ -307,40 +329,59 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TextoDniKeyTyped
 
     private void bNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNuevoActionPerformed
-        
-      String dni = TextoDni.getText();
-      String apellido =TextoApellido.getText();
-      String nombre=TextoNombre.getText();
-      
-     if(dni.equals("")||apellido.equals("")|| nombre.equals("")     ){
-         JOptionPane.showMessageDialog(null, "FALTAN DATOS FIJESE SEÑORAAAA :S");
-         TextoDni.setText("");
-         TextoApellido.setText("");
-         TextoNombre.setText("");
-     } 
-     else{
-        try{
-         int doc=Integer.parseInt(dni);
-         LocalDate fecha;
-         fecha =FechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-         Conexion.getConexion();
-         AlumnoData guardar = new AlumnoData();
-          Alumnos modificar = new Alumnos(doc,apellido,nombre,fecha,Radio.isSelected());
-                guardar.guardarAlumno(modificar);
-        }catch (NumberFormatException ex) { 
-            JOptionPane.showMessageDialog(null, "el documento requiere enteros" + ex);
+
+        String dni = TextoDni.getText();
+        String apellido = TextoApellido.getText();
+        String nombre = TextoNombre.getText();
+
+        if (dni.equals("") || apellido.equals("") || nombre.equals("") || Radio.isSelected() == false) {
+            JOptionPane.showMessageDialog(null, "Datos incompletos");
+            TextoDni.setText("");
+            TextoApellido.setText("");
+            TextoNombre.setText("");
+            FechaNacimiento.setDate(null);
+        } else if (apellido.matches("^[a-zA-Z]*$") && nombre.matches("^[a-zA-Z]*$")) {
+            try {
+                int doc = Integer.parseInt(dni);
+                AlumnoData guardar = new AlumnoData();
+                Alumnos alu = new Alumnos();
+                alu = guardar.buscarPorDni(doc);
+                if (alu.getDni() != 0) {
+                    JOptionPane.showMessageDialog(null, "Ya existe un alumno con ese DNI/ Intente de nuevo");
+                } else {
+                    LocalDate fecha;
+                    fecha = FechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    Conexion.getConexion();
+
+                    Alumnos modificar = new Alumnos(doc, apellido, nombre, fecha, Radio.isSelected());
+                    guardar.guardarAlumno(modificar);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "el documento requiere enteros" + ex);
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una fecha de nacimiento");
             } finally {
                 TextoDni.setText("");
                 TextoApellido.setText("");
                 TextoNombre.setText("");
-            }    
-     }    
+                Radio.setSelected(false);
+                FechaNacimiento.setDate(null);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Campos Apellido y Nombre debe contener caracteres");
+            TextoDni.setText("");
+            TextoApellido.setText("");
+            TextoNombre.setText("");
+            Radio.setSelected(false);
+            FechaNacimiento.setDate(null);
+        }
     }//GEN-LAST:event_bNuevoActionPerformed
 
     private void FechaNacimientoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_FechaNacimientoPropertyChange
-       if(FechaNacimiento.getDate()!=null){
-        LocalDate fecha =FechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    }
+        if (FechaNacimiento.getDate() != null) {
+            LocalDate fecha = FechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
     }//GEN-LAST:event_FechaNacimientoPropertyChange
 
 
@@ -364,16 +405,24 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-private void cargarCabecera(){
-    modelo.addColumn("idAlumno");
-    modelo.addColumn("DNI");
-    modelo.addColumn("Apellido");
-    modelo.addColumn("Nombre");
-    modelo.addColumn("F. Nacimiento");
-    modelo.addColumn("Estado");
-    TablaAlumnos.setModel(modelo);
-}
-private void cargarTabla(Alumnos alumno){
-    modelo.addRow(new Object[]{alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre(),alumno.getFechaNac(),alumno.isActivo()});
-}
+private void cargarCabecera() {
+        modelo.addColumn("idAlumno");
+        modelo.addColumn("DNI");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("F. Nacimiento");
+        modelo.addColumn("Estado");
+        TablaAlumnos.setModel(modelo);
+    }
+
+    private void cargarTabla(Alumnos alumno) {
+        modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre(), alumno.getFechaNac(), alumno.isActivo()});
+    }
+
+    private void limpiarTabla() {
+        int filas = modelo.getRowCount();
+        for (int i = filas - 1; i > -1; i--) {
+            modelo.removeRow(i);
+        }
+    }
 }

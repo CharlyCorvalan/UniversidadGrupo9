@@ -58,8 +58,6 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         BotonNuevo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        BBuscarNom = new javax.swing.JButton();
-        BBuscarAño = new javax.swing.JButton();
         ListarMaterias = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(421, 358));
@@ -130,20 +128,6 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tabla);
 
-        BBuscarNom.setText("Buscar");
-        BBuscarNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BBuscarNomActionPerformed(evt);
-            }
-        });
-
-        BBuscarAño.setText("Buscar");
-        BBuscarAño.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BBuscarAñoActionPerformed(evt);
-            }
-        });
-
         ListarMaterias.setText("Listar");
         ListarMaterias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,8 +174,6 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                                         .addComponent(BBuscarId)
                                         .addGap(17, 17, 17)
                                         .addComponent(BotonRefrescar))
-                                    .addComponent(BBuscarAño)
-                                    .addComponent(BBuscarNom)
                                     .addComponent(ListarMaterias)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(158, 158, 158)
@@ -214,13 +196,11 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(BBuscarNom))
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TextoAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(BBuscarAño))
+                    .addComponent(jLabel4))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -355,24 +335,6 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
        dispose();
     }//GEN-LAST:event_BotonSalirActionPerformed
 
-    private void BBuscarAñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarAñoActionPerformed
-        String año = TextoAño.getText();
-        int año1=0;
-        if(año.equals("")){
-            JOptionPane.showMessageDialog(null, "Debe ingresar el año a buscar");
-        }
-        try{
-            año1=Integer.parseInt(año);
-            Conexion.getConexion();
-            MateriaData buscar=new MateriaData();
-            ArrayList<Materia>materia=new ArrayList<>(buscar.listarMAterias());
-            cargarTablaLista(materia);
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Debe ingresar numero entero en el campo de año"+ex);
-        }
-        
-    }//GEN-LAST:event_BBuscarAñoActionPerformed
-
     private void ListarMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarMateriasActionPerformed
        Conexion.getConexion();
        MateriaData listar=new MateriaData();
@@ -383,24 +345,9 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
        
     }//GEN-LAST:event_ListarMateriasActionPerformed
 
-    private void BBuscarNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarNomActionPerformed
-        String nom=TextoNombre.getText();
-        if(nom.equals("")){
-            JOptionPane.showMessageDialog(null, "Campo Nombre esta vacio");
-        }else{
-            Conexion.getConexion();
-            MateriaData buscaNombre=new MateriaData();
-            
-            cargarTabla(buscaNombre.buscarPorNombre(nom));
-        }
-        
-    }//GEN-LAST:event_BBuscarNomActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BBuscarAño;
     private javax.swing.JButton BBuscarId;
-    private javax.swing.JButton BBuscarNom;
     private javax.swing.JButton BotonEliminar;
     private javax.swing.JButton BotonGuardar;
     private javax.swing.JButton BotonNuevo;

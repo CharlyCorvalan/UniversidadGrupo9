@@ -66,8 +66,6 @@
                                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                       <Component id="BotonRefrescar" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="BBuscarAño" min="-2" max="-2" attributes="0"/>
-                                  <Component id="BBuscarNom" min="-2" max="-2" attributes="0"/>
                                   <Component id="ListarMaterias" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -101,13 +99,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="TextoNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="BBuscarNom" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="TextoAño" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="BBuscarAño" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -243,22 +239,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="BBuscarNom">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BBuscarNomActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="BBuscarA&#xf1;o">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BBuscarA&#xf1;oActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="ListarMaterias">
       <Properties>
         <Property name="text" type="java.lang.String" value="Listar"/>
