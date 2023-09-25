@@ -16,19 +16,19 @@ import universidadgrupo9.Entidades.Materia;
  * @author charl
  */
 public class FormularioDeMateria extends javax.swing.JInternalFrame {
-    
 
-    private DefaultTableModel modelo=new DefaultTableModel(){
-        public boolean isCellEditable (int fila, int columna){
-            if(columna==1||columna==2||columna==3){
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int fila, int columna) {
+            if (columna == 1 || columna == 2 || columna == 3) {
                 return true;
             }
             return false;
         }
     };
+
     public FormularioDeMateria() {
         initComponents();
-       
+
         cargarCabecera();
     }
 
@@ -51,7 +51,6 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         TextoNombre = new javax.swing.JTextField();
         TextoAño = new javax.swing.JTextField();
         checkbox = new java.awt.Checkbox();
-        BotonRefrescar = new javax.swing.JButton();
         BotonEliminar = new javax.swing.JButton();
         BotonGuardar = new javax.swing.JButton();
         BotonSalir = new javax.swing.JButton();
@@ -77,13 +76,6 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         BBuscarId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BBuscarIdActionPerformed(evt);
-            }
-        });
-
-        BotonRefrescar.setText("Refrescar");
-        BotonRefrescar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonRefrescarActionPerformed(evt);
             }
         });
 
@@ -170,11 +162,9 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                                     .addComponent(checkbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(BBuscarId)
-                                        .addGap(17, 17, 17)
-                                        .addComponent(BotonRefrescar))
-                                    .addComponent(ListarMaterias)))))
+                                    .addComponent(BBuscarId)
+                                    .addComponent(ListarMaterias))))
+                        .addGap(49, 49, 49))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(158, 158, 158)
                         .addComponent(jLabel1))
@@ -191,7 +181,6 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TextoCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BBuscarId)
-                    .addComponent(BotonRefrescar)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -226,38 +215,30 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BBuscarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarIdActionPerformed
+        limpiarTabla();
         String cod = TextoCodigo.getText();
         int codigo = 0;
         if (cod.equals("")) {
-           JOptionPane.showMessageDialog(null, "Debe colocar el id  abuscar");
-        } else{
-        try{
-            codigo = Integer.parseInt(cod);
-            Conexion.getConexion();
-            MateriaData buscar = new MateriaData();
-            Materia bus=new Materia();
-            bus=buscar.buscarMateriaXid(codigo);
-            if (bus != null) {
-            cargarTabla(bus);
+            JOptionPane.showMessageDialog(null, "Debe colocar el id  abuscar");
         } else {
-            JOptionPane.showMessageDialog(null, "No se encontró una materia con el ID especificado");
-        }
-        }catch(NumberFormatException ex){
-            JOptionPane.showMessageDialog(null, "Debe ingresar un numero entero"+ex);
-        }
+            try {
+                codigo = Integer.parseInt(cod);
+                Conexion.getConexion();
+                MateriaData buscar = new MateriaData();
+                Materia bus = new Materia();
+                bus = buscar.buscarMateriaXid(codigo);
+                if (bus != null) {
+                    cargarTabla(bus);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró una materia con el ID especificado");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar un numero entero");
+            }
+
+            TextoCodigo.setText("");
     }//GEN-LAST:event_BBuscarIdActionPerformed
     }
-    private void BotonRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRefrescarActionPerformed
-        TextoAño.setText("");
-        TextoCodigo.setText("");
-        TextoNombre.setText("");
-        checkbox.setState(false);
-        int fila=tabla.getRowCount();
-        for (int i = fila-1; i >-1; i--) {
-            modelo.removeRow(i);
-        }
-    }//GEN-LAST:event_BotonRefrescarActionPerformed
-
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
         String id = TextoCodigo.getText();
         int idMateria = 0;
@@ -270,7 +251,8 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
             MateriaData eliminar = new MateriaData();
             eliminar.eliminarMateria(idMateria);
         }
-
+        limpiarTabla();
+        TextoCodigo.setText("");
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
     private void BotonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGuardarActionPerformed
@@ -280,12 +262,12 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
 
         int año1 = 0;
         int id1 = 0;
-        if (nombre.equals("") || año.equals("") || idMateria.equals("")) {
+        if (nombre.equals("") || año.equals("") || idMateria.equals("") || checkbox.getState() == false) {
             JOptionPane.showMessageDialog(null, "Campos requeridos estan vacios");
             TextoAño.setText("");
             TextoCodigo.setText("");
             TextoNombre.setText("");
-        } else {
+        } else if (nombre.matches("^[a-zA-Z ]*$")) {
             try {
                 año1 = Integer.parseInt(año);
                 id1 = Integer.parseInt(idMateria);
@@ -294,55 +276,63 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                 Materia modificar = new Materia(id1, nombre, año1, checkbox.getState());
                 guardar.modificarMateria(modificar);
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Año o id requiere enteros" + ex);
+                JOptionPane.showMessageDialog(null, "Año o id requiere enteros");
 
-            } finally {
-                TextoAño.setText("");
-                TextoCodigo.setText("");
-                TextoNombre.setText("");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Campo Nombre solo acepta letras");
         }
-
+        TextoAño.setText("");
+        TextoCodigo.setText("");
+        TextoNombre.setText("");
+        checkbox.setState(false);
+        limpiarTabla();
 
     }//GEN-LAST:event_BotonGuardarActionPerformed
 
     private void BotonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNuevoActionPerformed
-        //String id=TextoCodigo.getText();
-        String nombre=TextoNombre.getText();
-        String año=TextoAño.getText();
-        int año1=0;
-        if(nombre.equals("")||año.equals("")){
-            JOptionPane.showMessageDialog(null, "Debe llenar los campos de Nombre y año");
+
+        String nombre = TextoNombre.getText();
+        String año = TextoAño.getText();
+        int año1 = 0;
+        if (nombre.equals("") || año.equals("") || checkbox.getState() == false) {
+            JOptionPane.showMessageDialog(null, "Debe llenar los campos  Nombre, Año y Estado");
             TextoAño.setText("");
             TextoNombre.setText("");
-        }else {
-            try{
-                año1=Integer.parseInt(TextoAño.getText());
-                Conexion.getConexion();
-                MateriaData nuevo=new MateriaData();
-                Materia materia=new Materia(nombre, año1, checkbox.getState());
-                nuevo.agregarMateria(materia);
-            }catch(NumberFormatException ex){
-                JOptionPane.showMessageDialog(null, "Año requiere un entero"+ex);
-            }finally{
-            TextoAño.setText("");
-            TextoNombre.setText("");
+        } else if (nombre.matches("^[a-zA-Z ]*$")) {
+
+            try {
+                año1 = Integer.parseInt(TextoAño.getText());
+                if (año1 >= 1 && año1 <= 6) {
+                    Conexion.getConexion();
+                    MateriaData nuevo = new MateriaData();
+                    Materia materia = new Materia(nombre, año1, checkbox.getState());
+                    nuevo.agregarMateria(materia);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe ingresar un año valido [1-6]");
+                }
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Año requiere un entero");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Campo nombre solo acepta letras");
         }
+        TextoAño.setText("");
+        TextoNombre.setText("");
+        checkbox.setState(false);
     }//GEN-LAST:event_BotonNuevoActionPerformed
 
     private void BotonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSalirActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_BotonSalirActionPerformed
 
     private void ListarMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarMateriasActionPerformed
-       Conexion.getConexion();
-       MateriaData listar=new MateriaData();
-//       listar.listarMAterias();
-       ArrayList<Materia>bus=new ArrayList<>(listar.listarMAterias());
-//       bus=listar.listarMAterias();
+        limpiarTabla();
+        MateriaData listar = new MateriaData();
+        ArrayList<Materia> bus = new ArrayList<>(listar.listarMAterias());
         cargarTablaLista(bus);
-       
+
     }//GEN-LAST:event_ListarMateriasActionPerformed
 
 
@@ -351,7 +341,6 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
     private javax.swing.JButton BotonEliminar;
     private javax.swing.JButton BotonGuardar;
     private javax.swing.JButton BotonNuevo;
-    private javax.swing.JButton BotonRefrescar;
     private javax.swing.JButton BotonSalir;
     private javax.swing.JButton ListarMaterias;
     private javax.swing.JTextField TextoAño;
@@ -366,21 +355,30 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
-public void cargarCabecera(){
-    modelo.addColumn("ID");
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Año");
-    modelo.addColumn("Estado");
-    tabla.setModel(modelo);
-}
-public void cargarTabla(Materia mat){
-    modelo.addRow(new Object[]{mat.getIdMateria(),mat.getNombre(),mat.getAñoMateria(),mat.isActivo()});
-}
-public void cargarTablaLista(ArrayList<Materia> list){
-   
-    for (Materia elem : list) {
-        modelo.addRow(new Object[]{elem.getIdMateria(),elem.getNombre(),elem.getAñoMateria(),elem.isActivo()});
+public void cargarCabecera() {
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Año");
+        modelo.addColumn("Estado");
+        tabla.setModel(modelo);
     }
-   
-}
+
+    public void cargarTabla(Materia mat) {
+        modelo.addRow(new Object[]{mat.getIdMateria(), mat.getNombre(), mat.getAñoMateria(), mat.isActivo()});
+    }
+
+    public void cargarTablaLista(ArrayList<Materia> list) {
+
+        for (Materia elem : list) {
+            modelo.addRow(new Object[]{elem.getIdMateria(), elem.getNombre(), elem.getAñoMateria(), elem.isActivo()});
+        }
+
+    }
+
+    private void limpiarTabla() {
+        int fila = modelo.getRowCount();
+        for (int i = fila - 1; i > -1; i--) {
+            modelo.removeRow(i);
+        }
+    }
 }
