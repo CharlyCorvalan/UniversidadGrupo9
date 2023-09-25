@@ -27,9 +27,9 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
     }
 
     public void guardarAlumno(Alumnos alumno) {
+        //Preparar sentencia para mandar a mysql
         String sql = "insert into alumno(dni,apellido,nombre,fechaNac,estado)"
                 + "values(?,?,?,?,?)";
-
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, alumno.getDni());
