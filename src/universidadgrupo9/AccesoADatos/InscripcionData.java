@@ -29,7 +29,7 @@ public class InscripcionData {
     }
 
     public void guardarInscripcion (Inscripcion ins){
-     
+     //El metodo guarda una nueva Inscripion, tomando los datos que llegan por parametros "Inscripcion ins"
         try {
             String insAlum="INSERT INTO `inscripcion`(`nota`, `idAlumno`, `idMateria`)"
                     + " VALUES (?,?,?)";
@@ -51,6 +51,7 @@ public class InscripcionData {
     }
     
     public ArrayList <Inscripcion> obtenerInscripciones(){
+        //El metodo Lista todas las inscripciones en un ArrayList
         String sql="select idInscripcion , nota , idMateria , idAlumno from inscripcion ";
         try {
            PreparedStatement  ps = con.prepareStatement(sql);
@@ -115,9 +116,9 @@ public class InscripcionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla" +ex);
         }
-        for (Materia in : materia) {
-            System.out.println(in.getIdMateria());
-        }
+//        for (Materia in : materia) {
+//            System.out.println(in.getIdMateria());
+//        }
         return materia;
   
     }

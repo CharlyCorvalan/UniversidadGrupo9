@@ -28,10 +28,13 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
 
     public void guardarAlumno(Alumnos alumno) {
         //Preparar sentencia para mandar a mysql
+        ///El metodo guarda un alumno, tomando los datos del mismo, desde el alumno que 
+        ///llega por parametro.
         String sql = "insert into alumno(dni,apellido,nombre,fechaNac,estado)"
                 + "values(?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //se pasan los parametros del "?"
             ps.setInt(1, alumno.getDni());
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
@@ -39,6 +42,7 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
             ps.setBoolean(5, alumno.isActivo());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
+            //se recorre las posiciones del ResulSet
             if (rs.next()) {
                 alumno.setIdAlumno(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Alumno agregado");
@@ -51,6 +55,7 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
     }
 
     public void modificarAlumno(Alumnos alumno) {
+        //El metodo modifica un o los datos de un alumno que llega por parametro
         String sql = "update alumno set dni=? , apellido=? , nombre=?  ,fechaNac=?, estado=? "
                 + "where idAlumno=?";
         try {
@@ -71,6 +76,8 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
     }
 
     public void eliminarAlumno(int id) {
+        //El metodo elimina un alumno que llega por parametro el cual esta representado por un INT 
+        //que llega por parametro.
         String sql = "UPDATE alumno SET estado=0 WHERE idAlumno=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -87,7 +94,8 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
     }
 
     public ArrayList<Alumnos> listarAlumnos() {
-       
+       //El metodo Lista los alumnos conformados destro de un ArrayList en el cual, como condicion
+       //Esta dada en base a su "estado=1"(true o activos)
         
         try {
             String sql = "SELECT * FROM alumno WHERE estado = 1 ";
@@ -111,6 +119,7 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
         return alumnos;
     }
     public Alumnos buscarPorDni (int dni){
+        //El metodo busca un alumno por su DNI, el cual esta pasado por paramero con un INTdni
         Alumnos alu=new Alumnos();
         String sql="select idAlumno , dni, apellido, nombre ,fechaNac, estado from alumno where dni = ?";
         try {
@@ -129,10 +138,12 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se puede acceder a la tabla alumnos"+ex);
         }
-        
+        //El mismo metodo Setea los datos del alumno y los guarda en el objeto "alu" creado en el mismo metodo
+        //para luego devolverlo en el return
         return alu;
     }
     public Alumnos buscarPorId(int id){
+        //El metodo busca un alumno por medio de su ID, el cual esta pasado por parametro
     Alumnos alum=new Alumnos();
     String sql="Select  idAlumno , dni, apellido, nombre ,fechaNac, estado from alumno where dni = ?";
         try {
@@ -150,6 +161,8 @@ private ArrayList<Alumnos> alumnos = new ArrayList<>();
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //Al igual que el metodo buscarPorDni(), el metodo guarda los datos del alumno en el objeto "alum"
+        //Y los retorna por medio del return
     return alum;
     }
 }
