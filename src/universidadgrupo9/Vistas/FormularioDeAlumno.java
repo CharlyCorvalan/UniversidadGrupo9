@@ -25,9 +25,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
-            if (columna == 1|| columna == 2 || columna == 3) {
-                return true;
-            }
+
             return false;
         }
     };
@@ -248,35 +246,43 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BSalirActionPerformed
 
     private void BGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGuardarActionPerformed
-        int fila = TablaAlumnos.getSelectedRow();
-        LocalDate feNac;
+        //Se recibe informacion de los textfield
+        String apellido = TextoApellido.getText();
+        String nombre = TextoNombre.getText();
+        String documento=TextoDni.getText();
         
-        if (fila != -1) {
-            try{
-            int id = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-            int dni = Integer.parseInt(modelo.getValueAt(fila, 1).toString());
-            String apellido = modelo.getValueAt(fila, 2).toString();
-            String nombre = modelo.getValueAt(fila, 3).toString();
-            
-            feNac = FechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            Boolean estado = Radio.isSelected();
-
-            AlumnoData guardar = new AlumnoData();
-            Alumnos alumno = new Alumnos(id, dni, apellido, nombre, feNac, estado);
-            guardar.modificarAlumno(alumno);
-            JOptionPane.showMessageDialog(null, "Alumno modificado exitosamente");
-            }catch (NumberFormatException ex) {
+        if (apellido.equals("")|| nombre.equals("")) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+        }else if(apellido.matches("^[a-zA-Z]*$")&&nombre.matches("^[a-zA-Z]*$")){
+            try {
+                int dni=Integer.parseInt(documento);
+                boolean estado = Radio.isSelected();
+                LocalDate feNac;
+                feNac = FechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                AlumnoData guardar = new AlumnoData();
+                Alumnos alumno = new Alumnos(Integer.parseInt(modelo.getValueAt(0, 0).toString()), dni, apellido, nombre, feNac, estado);
+                guardar.modificarAlumno(alumno);
+                JOptionPane.showMessageDialog(null, "Alumno modificado exitosamente");
+                limpiarTabla();
+                FechaNacimiento.setDate(null);
+                TextoDni.setText("");
+                TextoApellido.setText("");
+                TextoNombre.setText("");
+                Radio.setSelected(false);
+                cargarTabla(alumno);
+            } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Campo de DNI solo recibe numeros enteros");
             }
+            }else{
+                JOptionPane.showMessageDialog(null, "Campos apellido y nombre requiere solo caracteres");
             }
-        limpiarTabla();
-        FechaNacimiento.setDate(null);
-        Radio.setSelected(false);
+
     }//GEN-LAST:event_BGuardarActionPerformed
 
     private void BBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarActionPerformed
         limpiarTabla();
         String documento = TextoDni.getText();
+        Alumnos alu = new Alumnos();
         if (documento.equals("")) {
             JOptionPane.showMessageDialog(null, "Campo documento requerido esta vacio");
         } else {
@@ -284,44 +290,46 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
                 int dni = Integer.parseInt(documento);
                 Conexion.getConexion();
                 AlumnoData buscarDNI = new AlumnoData();
-                Alumnos alu = new Alumnos();
                 alu = buscarDNI.buscarPorDni(dni);
                 if (alu.getIdAlumno() == 0) {
                     JOptionPane.showMessageDialog(null, "DNI no encontrado, intente nuevamente");
                 } else {
                     cargarTabla(alu);
-                    Date fecha=new Date();
+                    Date fecha = new Date();
                     LocalDate fe;
-                    fe=alu.getFechaNac();
-                    fecha=Date.from(fe.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    fe = alu.getFechaNac();
+                    fecha = Date.from(fe.atStartOfDay(ZoneId.systemDefault()).toInstant());
                     FechaNacimiento.setDate(fecha);
+                    TextoApellido.setText(alu.getApellido());
+                    TextoNombre.setText(alu.getNombre());
+                    Radio.setSelected(alu.isActivo());
+
                 }
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "El valor ingresado no es un número válido");
             }
-        }
-        TextoDni.setText("");
 
+        }
     }//GEN-LAST:event_BBuscarActionPerformed
 
     private void BEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEliminarActionPerformed
         int filaS = TablaAlumnos.getSelectedRow();
         if (filaS != -1) {
-                try {
-                    int id = Integer.parseInt(modelo.getValueAt(filaS, 0).toString());
-                    Conexion.getConexion();
-                    AlumnoData eliminar = new AlumnoData();
-                    eliminar.eliminarAlumno(id);
+            try {
+                int id = Integer.parseInt(modelo.getValueAt(filaS, 0).toString());
+                Conexion.getConexion();
+                AlumnoData eliminar = new AlumnoData();
+                eliminar.eliminarAlumno(id);
 
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "El valor en la primera columna no es un número válido");
-                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "El valor en la primera columna no es un número válido");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno / Busque por DNI");
         }
         limpiarTabla();
-        
+
     }//GEN-LAST:event_BEliminarActionPerformed
 
     private void TextoDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextoDniKeyTyped
@@ -340,7 +348,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
             TextoApellido.setText("");
             TextoNombre.setText("");
             FechaNacimiento.setDate(null);
-        } else if (apellido.matches("^[a-zA-Z]*$") && nombre.matches("^[a-zA-Z]*$")) {
+        } else if (apellido.matches("^[a-zA-Z ]*$") && nombre.matches("^[a-zA-Z ]*$")) {
             try {
                 int doc = Integer.parseInt(dni);
                 AlumnoData guardar = new AlumnoData();

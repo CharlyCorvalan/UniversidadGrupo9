@@ -179,6 +179,7 @@ public class ManipulacionDeNotas extends javax.swing.JInternalFrame {
             jCSelecAlum.setSelectedIndex(0); 
         }
         limpiarFilas();
+        jBGuardar.setEnabled(false);
     }//GEN-LAST:event_jBGuardarActionPerformed
 
 
