@@ -35,6 +35,7 @@ public class ManipulacionDeNotas extends javax.swing.JInternalFrame {
         CargarComboBox();
         CargarCabecera();
         limpiarFilas();
+        jBGuardar.setEnabled(false);
     }
 
     /**
@@ -143,7 +144,8 @@ public class ManipulacionDeNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jCSelecAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCSelecAlumActionPerformed
-       limpiarFilas();
+        jBGuardar.setEnabled(true);
+        limpiarFilas();
         InscripcionData alu = new InscripcionData();
 
         String alum = jCSelecAlum.getSelectedItem().toString();
@@ -159,23 +161,24 @@ public class ManipulacionDeNotas extends javax.swing.JInternalFrame {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         InscripcionData ins = new InscripcionData();
+        int filaselec = jTableAlum.getSelectedRow();
+        if(filaselec>-1){
         try {
             String alum = jCSelecAlum.getSelectedItem().toString();
             String alum2 = alum.substring(0, 1);
             int idAlum = Integer.parseInt(alum2);
-            int filaselec = jTableAlum.getSelectedRow();
             int idMat = Integer.parseInt(modelo.getValueAt(filaselec, 0).toString());
-            //String nomMat = modelo.getValueAt(filaselec, 1).toString();
             double nota = Double.parseDouble(modelo.getValueAt(filaselec, 2).toString());
             ins.ActualizarNota(idAlum, idMat, nota);
-            //System.out.println(idAlum + "-" + idMat + "-" + nota);
         } catch (NumberFormatException | NullPointerException ex) {
-            JOptionPane.showMessageDialog(null, "Error, ingrese una nota numerica " + ex);
-
+            JOptionPane.showMessageDialog(null, "Error, ingrese una nota numerica ");
+        }
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione una fila para continuar");
+            jBGuardar.setEnabled(false);
+            jCSelecAlum.setSelectedIndex(0); 
         }
         limpiarFilas();
-        jCSelecAlum.setSelectedIndex(0);
-        // TODO add your handling code here:
     }//GEN-LAST:event_jBGuardarActionPerformed
 
 

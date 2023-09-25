@@ -31,6 +31,9 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         CargarCabecera();
         CargarComboBox();
         limpiarFilas();
+        BotonAnular.setEnabled(false);
+       BotonInscribir.setEnabled(false);
+        
     }
 
     /**
@@ -48,14 +51,13 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         CBSelecAlum = new javax.swing.JComboBox<>();
-        RBMateNoIns = new javax.swing.JRadioButton();
-        RBMateIns = new javax.swing.JRadioButton();
+        MateriasNoInscriptas = new javax.swing.JRadioButton();
+        MateriasInscriptas = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableAlum = new javax.swing.JTable();
-        jBIns = new javax.swing.JButton();
-        jBAnularIns = new javax.swing.JButton();
+        BotonInscribir = new javax.swing.JButton();
+        BotonAnular = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
-        jBLimpiar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -84,17 +86,17 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
             }
         });
 
-        RBMateNoIns.setText("materias no inscriptas");
-        RBMateNoIns.addActionListener(new java.awt.event.ActionListener() {
+        MateriasNoInscriptas.setText("materias no inscriptas");
+        MateriasNoInscriptas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RBMateNoInsActionPerformed(evt);
+                MateriasNoInscriptasActionPerformed(evt);
             }
         });
 
-        RBMateIns.setText("materias inscriptas");
-        RBMateIns.addActionListener(new java.awt.event.ActionListener() {
+        MateriasInscriptas.setText("materias inscriptas");
+        MateriasInscriptas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RBMateInsActionPerformed(evt);
+                MateriasInscriptasActionPerformed(evt);
             }
         });
 
@@ -111,17 +113,17 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(jTableAlum);
 
-        jBIns.setText("Inscribir");
-        jBIns.addActionListener(new java.awt.event.ActionListener() {
+        BotonInscribir.setText("Inscribir");
+        BotonInscribir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBInsActionPerformed(evt);
+                BotonInscribirActionPerformed(evt);
             }
         });
 
-        jBAnularIns.setText("Anular Inscripcion");
-        jBAnularIns.addActionListener(new java.awt.event.ActionListener() {
+        BotonAnular.setText("Anular Inscripcion");
+        BotonAnular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAnularInsActionPerformed(evt);
+                BotonAnularActionPerformed(evt);
             }
         });
 
@@ -132,34 +134,18 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
             }
         });
 
-        jBLimpiar.setText("Limpiar");
-        jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBLimpiarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(RBMateIns)
-                        .addGap(22, 22, 22)
-                        .addComponent(jBLimpiar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(RBMateNoIns)
-                        .addGap(14, 14, 14))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBIns)
-                        .addGap(69, 69, 69)
-                        .addComponent(jBAnularIns)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBSalir)
-                        .addGap(17, 17, 17))))
+                .addComponent(BotonInscribir)
+                .addGap(69, 69, 69)
+                .addComponent(BotonAnular)
+                .addGap(23, 23, 23)
+                .addComponent(jBSalir)
+                .addGap(17, 17, 17))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -171,9 +157,16 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(CBSelecAlum, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(CBSelecAlum, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(MateriasInscriptas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(MateriasNoInscriptas)
+                                .addGap(25, 25, 25)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
@@ -192,15 +185,14 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RBMateNoIns)
-                    .addComponent(RBMateIns)
-                    .addComponent(jBLimpiar))
+                    .addComponent(MateriasNoInscriptas)
+                    .addComponent(MateriasInscriptas))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBIns)
-                    .addComponent(jBAnularIns)
+                    .addComponent(BotonInscribir)
+                    .addComponent(BotonAnular)
                     .addComponent(jBSalir))
                 .addContainerGap())
         );
@@ -208,17 +200,18 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInsActionPerformed
+    private void BotonInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonInscribirActionPerformed
         
         InscripcionData insAl = new InscripcionData();
         int numNota = 0;
         int filaselec = jTableAlum.getSelectedRow();
-        int idMat = Integer.parseInt(modelo.getValueAt(filaselec, 0).toString());
+       
 
-        if (filaselec <= -1) {
+        if (filaselec  <0) {
             JOptionPane.showMessageDialog(null, "seleccione una materia antes de continuar.");
         } else {
             try {
+                 int idMat = Integer.parseInt(modelo.getValueAt(filaselec, 0).toString());
                 String alum = CBSelecAlum.getSelectedItem().toString();
                 String alum2 = alum.substring(0, 1);
                 int a = Integer.parseInt(alum2);
@@ -230,15 +223,21 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                 Inscripcion ins = new Inscripcion(nota, alu, mater);
                 insAl.guardarInscripcion(ins);
             } catch (NumberFormatException | NullPointerException ex) {
-                JOptionPane.showMessageDialog(null, "Error, verifique los datos ingresados " + ex);
+                JOptionPane.showMessageDialog(null, "Error, verifique los datos ingresados ");
             }
 
         }
         limpiarFilas();
+        MateriasNoInscriptas.setSelected(false);
+        BotonInscribir.setEnabled(false);
+        CBSelecAlum.setSelectedIndex(0);
 
-    }//GEN-LAST:event_jBInsActionPerformed
+    }//GEN-LAST:event_BotonInscribirActionPerformed
 
-    private void RBMateNoInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateNoInsActionPerformed
+    private void MateriasNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MateriasNoInscriptasActionPerformed
+        MateriasInscriptas.setSelected(false);
+        BotonAnular.setEnabled(false);
+        BotonInscribir.setEnabled(true);
         limpiarFilas();
         mateIns = false;
         mateNoIns = true;
@@ -252,9 +251,13 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
 
         cargarTablaLista(aray);
 
-    }//GEN-LAST:event_RBMateNoInsActionPerformed
+    }//GEN-LAST:event_MateriasNoInscriptasActionPerformed
 
-    private void RBMateInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMateInsActionPerformed
+    private void MateriasInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MateriasInscriptasActionPerformed
+        BotonInscribir.setEnabled(false);
+        MateriasNoInscriptas.setSelected(false);
+        BotonAnular.setEnabled(true);
+        
         limpiarFilas();
         mateNoIns = false;
         mateIns = true;
@@ -269,35 +272,30 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
         cargarTablaLista(aray);
 
 
-    }//GEN-LAST:event_RBMateInsActionPerformed
+    }//GEN-LAST:event_MateriasInscriptasActionPerformed
 
     private void CBSelecAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CBSelecAlumActionPerformed
-        // TODO add your handling code here:
+        BotonInscribir.setEnabled(false);
+        MateriasNoInscriptas.setSelected(false);
+        BotonAnular.setEnabled(false);
+        MateriasInscriptas.setSelected(false);
+        limpiarFilas();
     }//GEN-LAST:event_CBSelecAlumActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
-    private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
-        CBSelecAlum.setSelectedIndex(0);
-        RBMateIns.setSelected(false);
-        RBMateNoIns.setSelected(false);
-        int numFil = jTableAlum.getRowCount();
-        for (int i = numFil - 1; i > -1; i--) {
-            modelo.removeRow(i);
-        }
-    }//GEN-LAST:event_jBLimpiarActionPerformed
-
-    private void jBAnularInsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAnularInsActionPerformed
-        // TODO add your handling code here:
+    private void BotonAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAnularActionPerformed
+        
         InscripcionData insAl = new InscripcionData();
         int filaselec = jTableAlum.getSelectedRow();
-        int idMat = Integer.parseInt(modelo.getValueAt(filaselec, 0).toString());
+        
         if (filaselec <= -1) {
             JOptionPane.showMessageDialog(null, "seleccione una materia antes de continuar.");
         } else {
             try {
+                int idMat = Integer.parseInt(modelo.getValueAt(filaselec, 0).toString());
                 String alum = CBSelecAlum.getSelectedItem().toString();
                 String alum2 = alum.substring(0, 1);
                 int a = Integer.parseInt(alum2);
@@ -305,20 +303,23 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                 mater.setIdMateria(idMat);
                 insAl.AnularInscripcionAlum(a, idMat);
             } catch (NumberFormatException | NullPointerException ex) {
-                JOptionPane.showMessageDialog(null, "Error, verifique los datos ingresados " + ex);
+                JOptionPane.showMessageDialog(null, "Error, verifique los datos ingresados ");
             }
 
         }
-    }//GEN-LAST:event_jBAnularInsActionPerformed
+        BotonAnular.setEnabled(false);
+        MateriasInscriptas.setSelected(false);
+        CBSelecAlum.setSelectedIndex(0);
+        limpiarFilas();
+    }//GEN-LAST:event_BotonAnularActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotonAnular;
+    private javax.swing.JButton BotonInscribir;
     private javax.swing.JComboBox<String> CBSelecAlum;
-    private javax.swing.JRadioButton RBMateIns;
-    private javax.swing.JRadioButton RBMateNoIns;
-    private javax.swing.JButton jBAnularIns;
-    private javax.swing.JButton jBIns;
-    private javax.swing.JButton jBLimpiar;
+    private javax.swing.JRadioButton MateriasInscriptas;
+    private javax.swing.JRadioButton MateriasNoInscriptas;
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -361,4 +362,5 @@ public void CargarComboBox() {
         }
 
     }
+    
 }
