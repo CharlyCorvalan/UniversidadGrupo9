@@ -15,18 +15,24 @@ import universidadgrupo9.Entidades.Materia;
 
 public class MateriaData {
 
+    //Se declara una variable de tipo Connection sin conexion
     private Connection con = null;
+    //ArrayList necesaria para el desarrollo de varios metodos
     private ArrayList<Materia> materia = new ArrayList<>();
 
+    //Constructor (vacio) de MateriaData con llamado de metodo estatico de clase Conexion
     public MateriaData() {
         con = Conexion.getConexion();
     }
-
+    //Metodo necesario para insertar una nueva materia en la base de datos
     public void agregarMateria(Materia mat) {
+        //Prepara la sentencia a enviar
         String materia = "insert into materia (nombre, año, estado)"
                 + "values (?,?,?)";
         try {
+            //Establece la conexion con la base de datos y prepara el envio de la sentencia
             PreparedStatement ps = con.prepareStatement(materia, PreparedStatement.RETURN_GENERATED_KEYS);
+            //Reemplaza los valores '?'
             ps.setString(1, mat.getNombre());
             ps.setInt(2, mat.getAñoMateria());
             ps.setBoolean(3, mat.isActivo());
@@ -87,7 +93,7 @@ public class MateriaData {
                 materiaID.setIdMateria(resultado.getInt("idMateria"));
                 materiaID.setNombre(resultado.getString("nombre"));
                 materiaID.setAñoMateria(resultado.getInt("año"));
-                materiaID.setActivo(resultado.getBoolean("estado"));           
+                materiaID.setActivo(resultado.getBoolean("estado"));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a tabla materia" + ex);
@@ -107,7 +113,7 @@ public class MateriaData {
                 materiaA.setNombre(resultado.getString("nombre"));
                 materiaA.setAñoMateria(resultado.getInt("año"));
                 materiaA.setActivo(resultado.getBoolean("estado"));
-               
+
                 materia.add(materiaA);
             }
         } catch (SQLException ex) {
@@ -126,9 +132,9 @@ public class MateriaData {
                 mate.setIdMateria(rs.getInt("idMateria"));
                 mate.setNombre(rs.getString("nombre"));
                 mate.setAñoMateria(rs.getInt("año"));
-                mate.setActivo(rs.getBoolean("estado"));               
+                mate.setActivo(rs.getBoolean("estado"));
                 materia.add(mate);
-                
+
             }
             ps.close();
         } catch (SQLException ex) {
@@ -144,7 +150,7 @@ public class MateriaData {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, nombre);
             ResultSet resultado = ps.executeQuery();
-            while(resultado.next()){
+            while (resultado.next()) {
                 buscaNombre.setIdMateria(resultado.getInt("idMateria"));
                 buscaNombre.setNombre(resultado.getString("nombre"));
                 buscaNombre.setAñoMateria(resultado.getInt("año"));
