@@ -6,14 +6,15 @@ import java.time.LocalDate;
 
 
 public class Alumnos {
+    // declaramos los siguientes atributos , para poder instanciar un objecto 
     private int idAlumno, dni;
     private String nombre , apellido;
     private LocalDate fechaNac;
     private boolean activo;
-
+//creamos el siguiente constructor vacio, que nos permiten crear objectos sin datos guardados
     public Alumnos() {
     }
-
+//en el siguiente constructor lo inicializamos con todos sus parametros
     public Alumnos(int idAlumno, int dni, String apellido, String nombre, LocalDate fechaNac, boolean activo) {
         this.idAlumno = idAlumno;
         this.dni = dni;
@@ -22,7 +23,7 @@ public class Alumnos {
         this.fechaNac = fechaNac;
         this.activo = activo;
     }
-
+//en este constructor inicializamos todos menos el atributo de idAlumno
     public Alumnos(int dni, String apellido , String nombre , LocalDate fechaNac, boolean activo) {
         this.dni = dni;
         this.nombre = nombre;
@@ -30,7 +31,7 @@ public class Alumnos {
         this.fechaNac = fechaNac;
         this.activo = activo;
     }
-
+//generamos los getter and setter correspondientes, que nos permiten  traer los valores de los atributos, que tengamos en la clase
     public int getIdAlumno() {
         return idAlumno;
     }
@@ -78,7 +79,7 @@ public class Alumnos {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-
+//toString se utiliza para obtener una representacion 
     @Override
     public String toString() {
         return idAlumno +" "  +dni+" " +  nombre +" "+  apellido;
