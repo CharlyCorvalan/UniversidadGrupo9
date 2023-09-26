@@ -49,36 +49,36 @@ public class InscripcionData {
         }
        
     }
+    //EL METODO SE DEJA COMENTADO AL NO SER TENIDO EN CUENTA
+//    public ArrayList <Inscripcion> obtenerInscripciones(){
+//        String sql="select idInscripcion , nota , idMateria , idAlumno from inscripcion ";
+//        try {
+//           PreparedStatement  ps = con.prepareStatement(sql);
+//            ResultSet resultado=ps.executeQuery();
+//        while(resultado.next()){
+//            System.out.println(resultado.getInt("idInscripcion")+" / "+resultado.getInt("idMateria"));
+//            Inscripcion inscrip=new Inscripcion();
+//             Alumnos alu=new Alumnos();
+//             Materia matete=new Materia();
+//            inscrip.setIdInscripcion(resultado.getInt("idInscripcion"));
+//            inscrip.setNota(resultado.getInt("nota"));
+//            int idAl=resultado.getInt("idAlumno");
+//            alu.setIdAlumno(idAl);
+//            inscrip.setAlumno(alu);
+//            int idMAt=resultado.getInt("idMateria");
+//            matete.setIdMateria(idMAt);
+//            inscrip.setMateria(matete);
+//            ins.add(inscrip);           
+//        } 
+//        ps.close();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "No se puede acceder a la tabla inscripcion");
+//        }
+//               return ins;
+//    }
     
-    public ArrayList <Inscripcion> obtenerInscripciones(){
-        //El metodo Lista todas las inscripciones en un ArrayList
-        String sql="select idInscripcion , nota , idMateria , idAlumno from inscripcion ";
-        try {
-           PreparedStatement  ps = con.prepareStatement(sql);
-            ResultSet resultado=ps.executeQuery();
-        while(resultado.next()){
-            System.out.println(resultado.getInt("idInscripcion")+" / "+resultado.getInt("idMateria"));
-            Inscripcion inscrip=new Inscripcion();
-             Alumnos alu=new Alumnos();
-             Materia matete=new Materia();
-            inscrip.setIdInscripcion(resultado.getInt("idInscripcion"));
-            inscrip.setNota(resultado.getInt("nota"));
-            int idAl=resultado.getInt("idAlumno");
-            alu.setIdAlumno(idAl);
-            inscrip.setAlumno(alu);
-            int idMAt=resultado.getInt("idMateria");
-            matete.setIdMateria(idMAt);
-            inscrip.setMateria(matete);
-            ins.add(inscrip);           
-        } 
-        ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se puede acceder a la tabla inscripcion");
-        }
-               return ins;
-    }
-    
-    public ArrayList<Materia> InscripcionPorAlum(int idAlum){  
+    public ArrayList<Materia> InscripcionPorAlum(int idAlum){ 
+        //El metodo devuelve un ArrayList de Materia(materia), tomando como parametro un "idAlumno"
         String cons="SELECT materia.idMateria , nombre , año FROM materia JOIN inscripcion ON "
                + "(materia.idMateria=inscripcion.idMateria) WHERE idAlumno =?";
         try {
@@ -86,6 +86,8 @@ public class InscripcionData {
             ps.setInt(1, idAlum);
             ResultSet resultado=ps.executeQuery();
             while(resultado.next()){
+                //Se crea un objeto Materia (mate) y se Setea los datos de interes, para luego
+                //cargarlos en el ArrayList materia y devolverlo en el return
                 Materia mate=new Materia();
                 mate.setIdMateria(resultado.getInt("idMateria"));
                 mate.setNombre(resultado.getString("nombre"));
@@ -98,7 +100,10 @@ public class InscripcionData {
         return materia;
     }
     public ArrayList<Materia> NoInscripcionPorAlum(int idAlum){
-        
+        //Metodo Idem al "InscripcionPorAlum()", en este caso, la sentencia enviada a la base de datos
+        //selecciona todas las materias con la condicion de que estas sean estado=1 && NO sea igual
+        //a la segunda sentencia en donde el idAlumno pasado por parametro, este asociado a una inscripcion
+        //de las materias listadas en el primer "SELECT*"
        String cons="SELECT * FROM materia where estado=1 AND idMateria not in  "
                + "(SELECT idMateria from inscripcion WHERE idAlumno =?)";
         try {
@@ -116,14 +121,13 @@ public class InscripcionData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla" +ex);
         }
-//        for (Materia in : materia) {
-//            System.out.println(in.getIdMateria());
-//        }
+
         return materia;
   
     }
     
     public void AnularInscripcionAlum(int idAlumno, int idMateria){
+        //El metodo anula una inscripcion, contando con el  idAlumno y el idMateria pasados por parametro
         String sql="DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -140,6 +144,7 @@ public class InscripcionData {
     }
     
     public ArrayList<Inscripcion> InscripcionPorID(int idAlumno){
+        //El metodo Lista las inscripciones de un alumno, contando con el idAlumno pasado por parametro
         String sql="SELECT inscripcion.idMateria, materia.nombre, nota FROM inscripcion join materia on inscripcion.idMateria"
                 + "=materia.idMateria WHERE inscripcion.idAlumno=?";
         try {
@@ -149,7 +154,9 @@ public class InscripcionData {
             while(rs.next()){
                 Inscripcion insc=new Inscripcion();
                 Materia mate=new Materia();
-                
+              //Los datos de la inscripcion se toman desde la base de datos y se guardan
+              //en el objeto de Materia"mate" y en le objeto de Inscripcion"insc" para luego agregarlos
+              //al ArrayList "ins" y devolverla con el return
                mate.setIdMateria(rs.getInt("idMateria"));
                mate.setNombre(rs.getString("nombre"));
                insc.setNota(rs.getDouble("nota"));
@@ -167,6 +174,7 @@ public class InscripcionData {
     }
    
     public void ActualizarNota(int idAlumno, int idMateria, double nota){
+        //El metodo actualiza la nota del alumno tomando por parametro el idAlumno, idMateria y la nota
         String sql="UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -183,6 +191,7 @@ public class InscripcionData {
         
     }
     public  ArrayList<Alumnos> obtenerAlumnosPorMateria(int idMateria){
+        //El metodo Lista los alumnos inscriptos en una materia pasada por parametro (idMateria)   
         String sql="Select alumno.idAlumno, dni, alumno.Apellido, alumno.Nombre FROM alumno JOIN inscripcion "
                 + "ON (inscripcion.idAlumno=alumno.idAlumno) WHERE inscripcion.idMateria=?";
         try {
@@ -190,6 +199,8 @@ public class InscripcionData {
             ps.setInt(1, idMateria);
             ResultSet resultado=ps.executeQuery();
             while(resultado.next()){
+                //Se setea los datos obtenidos desde la base de datos y se los guarda en el objeto Alumno 
+                //"al" para luego cargarlo y devolverlo en el ArrayList por medio del return
                 Alumnos al=new Alumnos();
                 al.setIdAlumno(resultado.getInt("idAlumno"));
                 al.setDni(resultado.getInt("dni"));

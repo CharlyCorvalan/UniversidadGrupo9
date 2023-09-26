@@ -262,7 +262,6 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
                 AlumnoData guardar = new AlumnoData();
                 Alumnos alumno = new Alumnos(Integer.parseInt(modelo.getValueAt(0, 0).toString()), dni, apellido, nombre, feNac, estado);
                 guardar.modificarAlumno(alumno);
-                JOptionPane.showMessageDialog(null, "Alumno modificado exitosamente");
                 limpiarTabla();
                 FechaNacimiento.setDate(null);
                 TextoDni.setText("");
@@ -327,6 +326,11 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno / Busque por DNI");
+            TextoDni.setText("");
+            TextoApellido.setText("");
+            TextoNombre.setText("");
+            Radio.setSelected(false);
+            FechaNacimiento.setDate(null);
         }
         limpiarTabla();
 

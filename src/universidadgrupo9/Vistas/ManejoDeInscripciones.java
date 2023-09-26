@@ -215,7 +215,7 @@ public class ManejoDeInscripciones extends javax.swing.JInternalFrame {
                 String alum = CBSelecAlum.getSelectedItem().toString();
                 String alum2 = alum.substring(0, 1);
                 int a = Integer.parseInt(alum2);
-                int nota = Integer.parseInt(JOptionPane.showInputDialog(numNota));
+                double nota = Double.parseDouble(JOptionPane.showInputDialog("ingrese la nota numerica decimal",numNota));
                 Alumnos alu = new Alumnos();
                 Materia mater = new Materia();
                 mater.setIdMateria(idMat);
