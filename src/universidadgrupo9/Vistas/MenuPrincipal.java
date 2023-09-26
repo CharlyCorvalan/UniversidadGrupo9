@@ -166,11 +166,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        //A la accion de FormularioDeMateria se crea un objeto "form"
         FormularioDeMateria form=new FormularioDeMateria();
+        //Se limpia el escritorio
         escritorio.removeAll();
+        //Se lleva hacia el frontal del escritorio el objeto "form" (FormularioDeMateria)
         escritorio.moveToFront(form);
+        //Se reformula el frontal del escritorio
         escritorio.repaint();
+        //Se agrega al escritorio el objeto "form"
         escritorio.add(form);
+        //Se setea a visible el objeto "form"
         form.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -213,6 +219,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu7ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        //Accion de cerrar el programa en su totalidad.
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
