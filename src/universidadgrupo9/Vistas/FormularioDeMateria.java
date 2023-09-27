@@ -218,7 +218,7 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
         String cod = TextoCodigo.getText();
         int codigo = 0;
         if (cod.equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe colocar el id  abuscar");
+            JOptionPane.showMessageDialog(null, "Debe colocar el id a buscar");
         } else {
             try {
                 codigo = Integer.parseInt(cod);

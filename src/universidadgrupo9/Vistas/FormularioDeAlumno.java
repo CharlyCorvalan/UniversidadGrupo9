@@ -23,15 +23,17 @@ import universidadgrupo9.Entidades.Materia;
  */
 public class FormularioDeAlumno extends javax.swing.JInternalFrame {
 //Instanciamos un modelo de tabla a usar
+
     private DefaultTableModel modelo = new DefaultTableModel() {
-    //A travez del metodo isCellEditable se elije las filas y columnas que seran editables
-    //o no.
+        //A travez del metodo isCellEditable se elije las filas y columnas que seran editables
+        //o no.
         public boolean isCellEditable(int fila, int columna) {
 
             return false;
         }
     };
 //Inicializamos los componentes del JIFrame 
+
     public FormularioDeAlumno() {
         initComponents();
         cargarCabecera();
@@ -243,28 +245,28 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TextoNombreActionPerformed
 
     private void BSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSalirActionPerformed
-         //Se utiliza el siguiente codigo para cerrar la ventana
+        //Se utiliza el siguiente codigo para cerrar la ventana
         dispose();
 
     }//GEN-LAST:event_BSalirActionPerformed
 
     private void BGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGuardarActionPerformed
         //Este metodo permitira modificar o no, a un alumno ya existente
-        
+
         //Se recibe informacion de los textfield
         String apellido = TextoApellido.getText();
         String nombre = TextoNombre.getText();
-        String documento=TextoDni.getText();
+        String documento = TextoDni.getText();
         //Se verifica que los campos de textfield no esten vacios
-        if (apellido.equals("")|| nombre.equals("")) {
+        if (apellido.equals("") || nombre.equals("")) {
             //Mensaje que advierte que faltan datos
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
-        //Se comprueba que lo ingresado en campos Apellido y Nombre sean solo letras
-        //a travez del metodo matches
-        }else if(apellido.matches("^[a-zA-Z]*$")&&nombre.matches("^[a-zA-Z]*$")){
+            //Se comprueba que lo ingresado en campos Apellido y Nombre sean solo letras
+            //a travez del metodo matches
+        } else if (apellido.matches("^[a-zA-Z]*$") && nombre.matches("^[a-zA-Z]*$")) {
             try {
                 //Se parcea a Integer el dato obtenido en el textfield Dni
-                int dni=Integer.parseInt(documento);
+                int dni = Integer.parseInt(documento);
                 //Se obtiene la seleccion del radiobuton que determina el estado del alumno
                 boolean estado = Radio.isSelected();
                 //Se obtiene la fecha seleccionada en el calendario y se la parcea al tipo LocalDate
@@ -287,13 +289,13 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
                 cargarTabla(alumno);
                 //Evita que el programa salga abruptamente si el campo de id(int), no recibe un entero
             } catch (NumberFormatException ex) {
-                
+
                 JOptionPane.showMessageDialog(null, "Campo de DNI solo recibe numeros enteros");
             }
-            }else{
+        } else {
             //Envia un mensaje de alerta si en los campos apellido o nombre se ingresa un caracter diferente a una letra
-                JOptionPane.showMessageDialog(null, "Campos apellido y nombre requiere solo caracteres");
-            }
+            JOptionPane.showMessageDialog(null, "Campos apellido y nombre requiere solo caracteres");
+        }
 
     }//GEN-LAST:event_BGuardarActionPerformed
 
@@ -306,7 +308,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Campo documento requerido esta vacio");
         } else {
             try {
-                int dni = Integer.parseInt(documento);             
+                int dni = Integer.parseInt(documento);
                 AlumnoData buscarDNI = new AlumnoData();
                 alu = buscarDNI.buscarPorDni(dni);
                 //Verificacion si el dato ingresado en el campo dni esta presente en la base de datos
@@ -341,7 +343,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
         //El valor mas bajo posible al seleccionar una fila es 0 (cero)
         if (filaS != -1) {
             try {
-                int id = Integer.parseInt(modelo.getValueAt(filaS, 0).toString());               
+                int id = Integer.parseInt(modelo.getValueAt(filaS, 0).toString());
                 AlumnoData eliminar = new AlumnoData();
                 eliminar.eliminarAlumno(id);
 
@@ -367,7 +369,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TextoDniKeyTyped
 
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
-
+        limpiarTabla();
         String dni = TextoDni.getText();
         String apellido = TextoApellido.getText();
         String nombre = TextoNombre.getText();
@@ -375,7 +377,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
         //se genera automaticamente en la base de datos
         if (dni.equals("") || apellido.equals("") || nombre.equals("") || Radio.isSelected() == false) {
             JOptionPane.showMessageDialog(null, "Datos incompletos");
-        //Si algun dato esta vacio se setea todo a su forma original
+            //Si algun dato esta vacio se setea todo a su forma original
             TextoDni.setText("");
             TextoApellido.setText("");
             TextoNombre.setText("");
@@ -415,6 +417,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
             TextoNombre.setText("");
             Radio.setSelected(false);
             FechaNacimiento.setDate(null);
+            limpiarTabla();
         }
     }//GEN-LAST:event_AgregarActionPerformed
 
@@ -455,10 +458,12 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
         modelo.addColumn("Estado");
         TablaAlumnos.setModel(modelo);
     }
+
     //Permite cargar la tabla con los datos necesarios
     private void cargarTabla(Alumnos alumno) {
         modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre(), alumno.getFechaNac(), alumno.isActivo()});
     }
+
     //Remueve toda la informacion de la tabla
     private void limpiarTabla() {
         int filas = modelo.getRowCount();
