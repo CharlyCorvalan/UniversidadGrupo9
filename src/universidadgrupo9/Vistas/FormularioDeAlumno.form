@@ -68,7 +68,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="bNuevo" min="-2" max="-2" attributes="0"/>
+                      <Component id="Agregar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="BEliminar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -118,7 +118,7 @@
               <Component id="jScrollPane1" pref="149" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="bNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Agregar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BSalir" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -159,12 +159,12 @@
         <Property name="text" type="java.lang.String" value="Fecha de Nacimiento"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="bNuevo">
+    <Component class="javax.swing.JButton" name="Agregar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nuevo"/>
+        <Property name="text" type="java.lang.String" value="Agregar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bNuevoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AgregarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BEliminar">

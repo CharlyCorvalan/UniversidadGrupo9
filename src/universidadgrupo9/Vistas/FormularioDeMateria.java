@@ -16,16 +16,14 @@ import universidadgrupo9.Entidades.Materia;
  * @author charl
  */
 public class FormularioDeMateria extends javax.swing.JInternalFrame {
-
+    //Instanciamos un modelo de tabla a usar
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int fila, int columna) {
-            if (columna == 1 || columna == 2 || columna == 3) {
-                return true;
-            }
+            
             return false;
         }
     };
-
+    //Inicializamos los componentes del JIFrame 
     public FormularioDeMateria() {
         initComponents();
 
@@ -215,6 +213,7 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BBuscarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarIdActionPerformed
+        //La accion de buscar requiere un id (entero)
         limpiarTabla();
         String cod = TextoCodigo.getText();
         int codigo = 0;
@@ -227,6 +226,7 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
                 MateriaData buscar = new MateriaData();
                 Materia bus = new Materia();
                 bus = buscar.buscarMateriaXid(codigo);
+                //Verificacion de la existencia de datos en la Materia obtenida
                 if (bus != null) {
                     cargarTabla(bus);
                 } else {
@@ -246,8 +246,7 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
             idMateria = -1;
             JOptionPane.showMessageDialog(null, "Ingrese el id en campo Codigo");
         } else {
-            idMateria = Integer.parseInt(id);
-            Conexion.getConexion();
+            idMateria = Integer.parseInt(id);           
             MateriaData eliminar = new MateriaData();
             eliminar.eliminarMateria(idMateria);
         }
@@ -271,7 +270,6 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
             try {
                 año1 = Integer.parseInt(año);
                 id1 = Integer.parseInt(idMateria);
-                Conexion.getConexion();
                 MateriaData guardar = new MateriaData();
                 Materia modificar = new Materia(id1, nombre, año1, checkbox.getState());
                 guardar.modificarMateria(modificar);
@@ -303,8 +301,8 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
 
             try {
                 año1 = Integer.parseInt(TextoAño.getText());
+                //Se verifica que se ingrese un año de materia valido
                 if (año1 >= 1 && año1 <= 6) {
-                    Conexion.getConexion();
                     MateriaData nuevo = new MateriaData();
                     Materia materia = new Materia(nombre, año1, checkbox.getState());
                     nuevo.agregarMateria(materia);
@@ -324,10 +322,12 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BotonNuevoActionPerformed
 
     private void BotonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSalirActionPerformed
+        //Se utiliza el siguiente codigo para cerrar la ventana
         dispose();
     }//GEN-LAST:event_BotonSalirActionPerformed
 
     private void ListarMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarMateriasActionPerformed
+        //Metodo utilizado para listar todas las materias activas
         limpiarTabla();
         MateriaData listar = new MateriaData();
         ArrayList<Materia> bus = new ArrayList<>(listar.listarMAterias());
@@ -355,18 +355,20 @@ public class FormularioDeMateria extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
-public void cargarCabecera() {
+//Metodo usado para darle forma a la cabecera de la tabla
+    public void cargarCabecera() {
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
         modelo.addColumn("Año");
         modelo.addColumn("Estado");
         tabla.setModel(modelo);
     }
-
+    //Metodo utilizado para cargar la tabla desde Bopton Buscar, el cual retorna una sola materia
+    //obtenida a travez del id de materia
     public void cargarTabla(Materia mat) {
         modelo.addRow(new Object[]{mat.getIdMateria(), mat.getNombre(), mat.getAñoMateria(), mat.isActivo()});
     }
-
+    //Metodo utilizado para cargar tabla desde Boton listar, el mismo trae un arreglo de materias
     public void cargarTablaLista(ArrayList<Materia> list) {
 
         for (Materia elem : list) {
@@ -374,7 +376,7 @@ public void cargarCabecera() {
         }
 
     }
-
+    //Remueve las filas de la tabla
     private void limpiarTabla() {
         int fila = modelo.getRowCount();
         for (int i = fila - 1; i > -1; i--) {

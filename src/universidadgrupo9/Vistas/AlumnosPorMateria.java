@@ -13,14 +13,16 @@ import universidadgrupo9.Entidades.Materia;
  * @author charl
  */
 public class AlumnosPorMateria extends javax.swing.JInternalFrame {
+    //Instanciamos un modelo de tabla a usar
 private DefaultTableModel modelo=new DefaultTableModel(){
+   //A travez del metodo isCellEditable se elije las filas y columnas que seran editables
+    //o no.
     public boolean isCellEditable(int fila, int columna){
         return false;
     }
 };
-    /**
-     * Creates new form AlumnosPorMateria
-     */
+    //Inicializamos los componentes del JIFrame ademas de los metodos necesarios
+    //para el correcto desarrollo de la ventana
     public AlumnosPorMateria() {
         initComponents();
         cargarCombo();
@@ -118,15 +120,25 @@ private DefaultTableModel modelo=new DefaultTableModel(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Se utiliza el siguiente codigo para cerrar la ventana
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ComboMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboMateriaActionPerformed
+        //A travez de la accion de seleccionar un item en el combobox se obtendran los siguientes datos
+        //Evita que quede informacion residual en la tabla 
         limpiarTabla();
+        //Se obtiene la informacion del item seleccionado del combobox y se toma el toString establecido en la clase Alumnos
         String num=ComboMateria.getSelectedItem().toString();
+        //Se toma el primer caracter del toString, a travez de substring
         String num1=num.substring(0, 1);
+        //Lo requerido es un int, se debe parsear lo obtenido en el paso anterior
         int idMat=Integer.parseInt(num1);
+        //Se instancia un objeto de InscripcionData para poder acceder a sus metodos
         InscripcionData ins=new InscripcionData();   
+        //Se instancia una List para poder cargar la tabla mediante el metodo cargartabla();
+        //El metodo obtenerAlumnosPorMateria de la clase InscripcionData requiere un id de materia
+        //y devuelve una ArrayList de Alumnos
         ArrayList<Alumnos> mate=new ArrayList<>(ins.obtenerAlumnosPorMateria(idMat));
         cargarTabla(mate);
     }//GEN-LAST:event_ComboMateriaActionPerformed
@@ -140,13 +152,15 @@ private DefaultTableModel modelo=new DefaultTableModel(){
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
+    //Se carga el combobox  con el listado de materias vigentes
    public void cargarCombo(){
+       //Se utiliza el metodo lsitarMaterias a travez de la clase MateriaData
        MateriaData mate=new MateriaData();
        for (Materia elem : mate.listarMAterias()) {
            ComboMateria.addItem(elem.toString());
        }
    } 
+   //Se obtendra un listado de alumnos. La cabecera muestra el tipo de informacion que se cargara en la tabla
    public void cargarCabecera(){
        modelo.addColumn("ID");
        modelo.addColumn("DNI");
@@ -154,14 +168,16 @@ private DefaultTableModel modelo=new DefaultTableModel(){
        modelo.addColumn("Nombre");
        TablaAlumnos.setModel(modelo);
    }
+   //Metodo utilizado para evitar sobrecargar la tabla, mostrando solo la informacion requerida
     public void limpiarTabla(){
         int fila=modelo.getRowCount();
         for (int i = fila-1; i > -1; i--) {
             modelo.removeRow(i);
         }
     }
+    //Metodo por el cual se procede a cargar la tabla
     public void cargarTabla(ArrayList<Alumnos> al){
-        
+        //Al recibir una List, el metodo utiliza un for each para poder recorrer la List y agregar filas a la tabla
         for (Alumnos ele : al) {
             modelo.addRow(new Object[]{ele.getIdAlumno(),ele.getDni(),ele.getApellido(),ele.getNombre()});
         }

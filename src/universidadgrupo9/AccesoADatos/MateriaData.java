@@ -20,7 +20,7 @@ public class MateriaData {
     //ArrayList necesaria para el desarrollo de varios metodos
     private ArrayList<Materia> materia = new ArrayList<>();
 
-    //Constructor (vacio) de MateriaData con llamado de metodo estatico de clase Conexion
+    //Constructor (vacio) de MateriaData  el cual llama al metodo estatico de clase Conexion
     public MateriaData() {
         con = Conexion.getConexion();
     }

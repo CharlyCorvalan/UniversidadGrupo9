@@ -22,14 +22,16 @@ import universidadgrupo9.Entidades.Materia;
  * @author charl
  */
 public class FormularioDeAlumno extends javax.swing.JInternalFrame {
-
+//Instanciamos un modelo de tabla a usar
     private DefaultTableModel modelo = new DefaultTableModel() {
+    //A travez del metodo isCellEditable se elije las filas y columnas que seran editables
+    //o no.
         public boolean isCellEditable(int fila, int columna) {
 
             return false;
         }
     };
-
+//Inicializamos los componentes del JIFrame 
     public FormularioDeAlumno() {
         initComponents();
         cargarCabecera();
@@ -50,7 +52,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        bNuevo = new javax.swing.JButton();
+        Agregar = new javax.swing.JButton();
         BEliminar = new javax.swing.JButton();
         BGuardar = new javax.swing.JButton();
         BSalir = new javax.swing.JButton();
@@ -75,10 +77,10 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Fecha de Nacimiento");
 
-        bNuevo.setText("Nuevo");
-        bNuevo.addActionListener(new java.awt.event.ActionListener() {
+        Agregar.setText("Agregar");
+        Agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bNuevoActionPerformed(evt);
+                AgregarActionPerformed(evt);
             }
         });
 
@@ -182,7 +184,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(bNuevo)
+                        .addComponent(Agregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BEliminar)
                         .addGap(34, 34, 34)
@@ -222,7 +224,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bNuevo)
+                    .addComponent(Agregar)
                     .addComponent(BEliminar)
                     .addComponent(BGuardar)
                     .addComponent(BSalir))
@@ -241,44 +243,62 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TextoNombreActionPerformed
 
     private void BSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSalirActionPerformed
+         //Se utiliza el siguiente codigo para cerrar la ventana
         dispose();
 
     }//GEN-LAST:event_BSalirActionPerformed
 
     private void BGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGuardarActionPerformed
+        //Este metodo permitira modificar o no, a un alumno ya existente
+        
         //Se recibe informacion de los textfield
         String apellido = TextoApellido.getText();
         String nombre = TextoNombre.getText();
         String documento=TextoDni.getText();
-        
+        //Se verifica que los campos de textfield no esten vacios
         if (apellido.equals("")|| nombre.equals("")) {
+            //Mensaje que advierte que faltan datos
             JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+        //Se comprueba que lo ingresado en campos Apellido y Nombre sean solo letras
+        //a travez del metodo matches
         }else if(apellido.matches("^[a-zA-Z]*$")&&nombre.matches("^[a-zA-Z]*$")){
             try {
+                //Se parcea a Integer el dato obtenido en el textfield Dni
                 int dni=Integer.parseInt(documento);
+                //Se obtiene la seleccion del radiobuton que determina el estado del alumno
                 boolean estado = Radio.isSelected();
+                //Se obtiene la fecha seleccionada en el calendario y se la parcea al tipo LocalDate
                 LocalDate feNac;
                 feNac = FechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                //Se instancia un objeto AlumnoData para acceder a sus metodos
                 AlumnoData guardar = new AlumnoData();
+                //Se instancia un objeto del tipo Alumnos que contendra la informacion obtenida
                 Alumnos alumno = new Alumnos(Integer.parseInt(modelo.getValueAt(0, 0).toString()), dni, apellido, nombre, feNac, estado);
+                //Se invoca al modificarAlumno de AlumnoData el cual recibe un alumno
                 guardar.modificarAlumno(alumno);
+                //Completado con exito se setea los textfield, radiobutton y calendario 
                 limpiarTabla();
                 FechaNacimiento.setDate(null);
                 TextoDni.setText("");
                 TextoApellido.setText("");
                 TextoNombre.setText("");
                 Radio.setSelected(false);
+                //Muestra en tabla al alumno recien modificado
                 cargarTabla(alumno);
+                //Evita que el programa salga abruptamente si el campo de id(int), no recibe un entero
             } catch (NumberFormatException ex) {
+                
                 JOptionPane.showMessageDialog(null, "Campo de DNI solo recibe numeros enteros");
             }
             }else{
+            //Envia un mensaje de alerta si en los campos apellido o nombre se ingresa un caracter diferente a una letra
                 JOptionPane.showMessageDialog(null, "Campos apellido y nombre requiere solo caracteres");
             }
 
     }//GEN-LAST:event_BGuardarActionPerformed
 
     private void BBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarActionPerformed
+        //La accion primero borra la tabla y luego ejecuta el resto de codigo
         limpiarTabla();
         String documento = TextoDni.getText();
         Alumnos alu = new Alumnos();
@@ -286,13 +306,14 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Campo documento requerido esta vacio");
         } else {
             try {
-                int dni = Integer.parseInt(documento);
-                Conexion.getConexion();
+                int dni = Integer.parseInt(documento);             
                 AlumnoData buscarDNI = new AlumnoData();
                 alu = buscarDNI.buscarPorDni(dni);
+                //Verificacion si el dato ingresado en el campo dni esta presente en la base de datos
                 if (alu.getIdAlumno() == 0) {
                     JOptionPane.showMessageDialog(null, "DNI no encontrado, intente nuevamente");
                 } else {
+                    //Ademas de cargar la tabla, la informacion se muestra en los textfield, radiobutton y calendario
                     cargarTabla(alu);
                     Date fecha = new Date();
                     LocalDate fe;
@@ -313,11 +334,14 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BBuscarActionPerformed
 
     private void BEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEliminarActionPerformed
+        //El metodo eliminar requiere que se seleccione una fila de la tabla, luego de haber buscado un alumno por sui dni
+        //GetSelectedRow devuelve un numero entero que representa la fila seleccionada
         int filaS = TablaAlumnos.getSelectedRow();
+        //Comprobacion del valor de la variable que contiene el numero de fila seleccionada
+        //El valor mas bajo posible al seleccionar una fila es 0 (cero)
         if (filaS != -1) {
             try {
-                int id = Integer.parseInt(modelo.getValueAt(filaS, 0).toString());
-                Conexion.getConexion();
+                int id = Integer.parseInt(modelo.getValueAt(filaS, 0).toString());               
                 AlumnoData eliminar = new AlumnoData();
                 eliminar.eliminarAlumno(id);
 
@@ -326,6 +350,8 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno / Busque por DNI");
+            //Si se presiona el boton eliminar si haber seleccionado una fila, se devuelve un cartel y se setea 
+            //los textfields a vacio, radiobutton a false y calendario a null
             TextoDni.setText("");
             TextoApellido.setText("");
             TextoNombre.setText("");
@@ -340,14 +366,16 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TextoDniKeyTyped
 
-    private void bNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNuevoActionPerformed
+    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
 
         String dni = TextoDni.getText();
         String apellido = TextoApellido.getText();
         String nombre = TextoNombre.getText();
-
+        //Accion Agregar, requiere toda la informacion de un alumno para ser agregado, excepto el id que 
+        //se genera automaticamente en la base de datos
         if (dni.equals("") || apellido.equals("") || nombre.equals("") || Radio.isSelected() == false) {
             JOptionPane.showMessageDialog(null, "Datos incompletos");
+        //Si algun dato esta vacio se setea todo a su forma original
             TextoDni.setText("");
             TextoApellido.setText("");
             TextoNombre.setText("");
@@ -388,7 +416,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
             Radio.setSelected(false);
             FechaNacimiento.setDate(null);
         }
-    }//GEN-LAST:event_bNuevoActionPerformed
+    }//GEN-LAST:event_AgregarActionPerformed
 
     private void FechaNacimientoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_FechaNacimientoPropertyChange
         if (FechaNacimiento.getDate() != null) {
@@ -398,6 +426,7 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Agregar;
     private javax.swing.JButton BBuscar;
     private javax.swing.JButton BEliminar;
     private javax.swing.JButton BGuardar;
@@ -408,7 +437,6 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField TextoApellido;
     private javax.swing.JTextField TextoDni;
     private javax.swing.JTextField TextoNombre;
-    private javax.swing.JButton bNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -417,7 +445,8 @@ public class FormularioDeAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-private void cargarCabecera() {
+//Metodo usado para darle forma a la cabecera de la tabla
+    private void cargarCabecera() {
         modelo.addColumn("idAlumno");
         modelo.addColumn("DNI");
         modelo.addColumn("Apellido");
@@ -426,11 +455,11 @@ private void cargarCabecera() {
         modelo.addColumn("Estado");
         TablaAlumnos.setModel(modelo);
     }
-
+    //Permite cargar la tabla con los datos necesarios
     private void cargarTabla(Alumnos alumno) {
         modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre(), alumno.getFechaNac(), alumno.isActivo()});
     }
-
+    //Remueve toda la informacion de la tabla
     private void limpiarTabla() {
         int filas = modelo.getRowCount();
         for (int i = filas - 1; i > -1; i--) {
